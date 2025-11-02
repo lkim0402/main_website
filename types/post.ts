@@ -1,5 +1,12 @@
+export interface PostLink {
+  path: string;
+  title: string;
+  date: string;
+}
+
 export interface Post {
-  _id: string;
+  // _id: string;
+  path: string;
   title: string;
   content: string;
   body: string;

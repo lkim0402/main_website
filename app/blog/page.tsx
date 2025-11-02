@@ -1,70 +1,90 @@
-import { Post } from "../../types/post";
-import PostLink from "../../components/postBox";
+import PostLink from "../../components/postLink"; // Assuming you'll use this later
 import PageTitle from "../../components/PageTitle";
-import FadeInPage from "../../components/FadeInPage";
-// import { Tag } from "@/data/types";
-// import TagFilterWrapper from "components/TagFilterWrapper";
-// import React, { useState } from "react";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
-export const revalidate = 30; // Recheck every 30 seconds
+// formatting date
+function formatDate(date: Date) {
+  const d = new Date(date);
+  let month = "" + (d.getMonth() + 1);
+  let day = "" + d.getDate();
+  const year = d.getFullYear();
 
-export default async function Workshop() {
-  let posts: Post[] = [];
-  // let tags: Tag[] = [];
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
 
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/posts`,
-      {
-        next: { revalidate: 30 },
-      }
-    );
+  return [year, month, day].join("/");
+}
 
-    if (!response.ok) {
-      throw new Error(`HTTP error, status: ${response.status}`);
-    }
-    console.log("fetched posts in workshop/page");
-    posts = await response.json();
-  } catch (e) {
-    if (e instanceof Error) {
-      console.log("Failed to fetch posts: ", e);
+// Recursive function to find all .mdx files
+const getPostFiles = (dir: string): string[] => {
+  let files: string[] = [];
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      // If it's a directory, dive deeper
+      files = files.concat(getPostFiles(fullPath));
+    } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
+      // If it's an .mdx file, add its full path
+      files.push(fullPath);
     }
   }
+  return files;
+};
+
+export default async function Workshop() {
+  const blogDirectory = path.join(process.cwd(), "posts");
+
+  // get all file paths
+  const allPostFilePaths = getPostFiles(blogDirectory);
+
+  // map over the full paths, not just file names
+  const blogs = allPostFilePaths.map((fullPath) => {
+    // Create the correct slug from the relative path
+    // "posts/2025/aws-ccp-cert.mdx" -> "2025/aws-ccp-cert"
+    const relativePath = path.relative(blogDirectory, fullPath);
+    const slug = relativePath.replace(/\\/g, "/").replace(".mdx", "");
+
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data: frontMatter } = matter(fileContents);
+    const date = new Date(frontMatter.date);
+
+    const formattedDate = formatDate(new Date(date));
+    return {
+      slug, // e.g "2025/aws-ccp-cert"
+      formattedDate,
+      meta: frontMatter,
+    };
+  });
 
   return (
-    <FadeInPage>
+    <div>
+      <PageTitle
+        title="Blogging"
+        description="Posts/writings about projects, devlogs, certifications, notes, etc."
+      />
       <div>
-        <PageTitle
-          title="Blogging"
-          description="Posts/writings about projects, devlogs, certifications, notes, etc."
-        />
-        {
+        <div className="flex flex-col justify-center">
+          <div className="flex flex-row "></div>
           <div>
-            {posts.length === 0 ? (
-              <p className="italic text-gray-500 text-center">
-                No posts available.
-              </p>
-            ) : (
-              <div className="flex flex-col justify-center">
-                <div className="flex flex-row "></div>
-                <div>
-                  {posts
-                    .filter(
-                      (post: Post) =>
-                        // post.category == "Workshop" ||
-                        // post.category == "Journal"
-                        post.category === "Workshop" &&
-                        post.status === "Published"
-                    )
-                    .map((post: Post) => (
-                      <PostLink {...post} key={post._id} />
-                    ))}
-                </div>
-              </div>
-            )}
+            {/* This map will now work correctly */}
+            <ul className="space-y-4">
+              {blogs.map((blog) => (
+                <li key={blog.slug}>
+                  <PostLink
+                    path={blog.slug}
+                    date={blog.formattedDate}
+                    title={blog.meta.title}
+                  ></PostLink>
+                </li>
+              ))}
+            </ul>
           </div>
-        }
+        </div>
       </div>
-    </FadeInPage>
+    </div>
   );
 }
