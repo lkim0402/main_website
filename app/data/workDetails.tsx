@@ -21,9 +21,7 @@ export const WorkDetails: sectionDetails[] = [
         <>
           Co-authored and published a workshop paper at{" "}
           <a
-            className="text-indigo-500 hover:text-indigo-800 
-            dark:text-indigo-200 dark:hover:text-indigo-300
-            underline"
+            className="textLink underline"
             href="https://www.ieeeismar.net/2025/"
             target="_blank"
             rel="noopener noreferrer"

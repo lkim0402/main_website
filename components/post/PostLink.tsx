@@ -19,15 +19,15 @@ export default function PostLink({ path, title, date }: PostLinkStruct) {
       </div>
 
       {/* Content */}
-      <section className="underline decoration-dotted">
+      <section className="">
         <Link href={`/blog/${path}`}>
-          <h3
+          <div
             className="text-gray-800 dark:text-gray-100
             transition-all duration-300 hover:scale-101
-            line-clamp-2 "
+            line-clamp-2 font-normal underline decoration-dotted"
           >
             {title}
-          </h3>
+          </div>
         </Link>
       </section>
     </div>

@@ -62,7 +62,7 @@ export default function SectionDetails({
                           href={orgLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:underline"
+                          className="hover:underline textLink"
                         >
                           {title}
                         </a>
@@ -97,13 +97,15 @@ export default function SectionDetails({
                 {Object.entries(link).map(([key, value]) => (
                   <div
                     key={key}
-                    className="py-0.5 px-1.5  my-4 border rounded
-                    border-indigo-400 text-indigo-400
-                    hover:text-white hover:bg-indigo-400 hover:border-indigo-400
-                    dark:border-indigo-200 dark:text-indigo-200 
+                    className="py-0.5 px-1.5  my-4 
                      "
                   >
-                    <a href={value} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={value}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="buttonLink"
+                    >
                       {key}
                     </a>
                   </div>

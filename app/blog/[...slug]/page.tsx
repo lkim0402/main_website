@@ -67,10 +67,7 @@ export default async function Post({
           <div className="space-x-[0.5rem]">
             {frontMatter.Tags.map((el: string) => {
               return (
-                <span
-                  className="bg-blue-100 text-blue-800 text-[0.9rem] py-0.5 px-2"
-                  key={el}
-                >
+                <span className="tag" key={el}>
                   #{el}
                 </span>
               );

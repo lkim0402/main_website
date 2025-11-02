@@ -36,14 +36,9 @@ export default function Project({
         </h2>
         <div className="flex flex-wrap gap-2 text-gray-800 dark:text-gray-300 microsoftFont">
           <span className=" dark:text-white dark:opacity-70">{date}</span>
-          <span className="">|</span>
-          <span
-            className=" dark:text-white dark:opacity-70 
-           text-center  "
-          >
-            #{type}
-          </span>
-          <span className="">|</span>
+          <span>|</span>
+          <span>{type}</span>
+          <span>|</span>
           {links &&
             links.map((el, index) => {
               return (

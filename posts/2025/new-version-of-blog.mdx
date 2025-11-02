@@ -1,0 +1,54 @@
+---
+title: "Revamping my blog"
+date: "2025/11/02"
+Tags: [Retrospective]
+Published: True
+---
+
+My close friends/family might know that my website used to look like this:
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1753436339/nwkamimac8entdfxjahw.png)
+
+I mean, my first motivation was to make it look like one of those pinterest cards with cute icons and stickers.
+I liked this design at first, but as time passed I started to not like it as much as before..
+I especially wanted to change the general color scheme too, to a more blueish color, and rearrange the layout.
+
+So here were my main reasons:
+
+1. I didn't like my design anymore lol, I wanted a cleaner, prettier aesthetic but also minimal at the same time?
+2. My codebase was a HUGE mess. I had lots of copy and paste from old stack overflow
+   forums and pages, and they were heavily unorganized. For example my CSS file had
+   so many unused code snippets with various imports that were ~100 lines long, and
+   they weren't even necessary.
+3. I wanted to add more interactivity into the blog posts, which, with
+   the Tiptap-based CMS, was limited.
+
+# Using Mdx
+
+First of all, I really wanted to add interactive portions to my blog posts.
+One of my biggest inspirations for this is using p5.js and VPython, which
+I would love to embed visual things directly.
+
+<br />
+So I decided to not use MongoDB for storing blog posts but instead use MDX directly
+in my repo and save them there. This also meant saying good-byt to the CMS I built
+(which I don't particularly regret because it gave me very good practice).
+
+# The layout
+
+I moved the categories up and made it horizontal. I had initially made it vertical because I thought
+I will expand my website with more categories, hence moving down would look better than moving sideways.
+But now I changed my mind and wanted a more minimal design with less clutter.
+
+<br />I also was considering a separate `about` page, but I didn't really know
+what to put in there that weren't already on the home page, so I just combined
+them.
+
+# The style
+
+I really wanted to go for the old <span className="microsoftFont">Windows-98 aesthetics</span>.
+While looking for fonts, I had considered many similar ones, but I discovered that the <a href="https://martyr.shop/products/ms-w98-ui" className="microsoftFont textLink">MS W98 UI font</a> was free to use, so I got it.
+
+# Overall
+
+I'm pretty satisfied with the outcome, although I still have many features to add. (This post will probably continue to update)

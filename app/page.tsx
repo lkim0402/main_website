@@ -51,11 +51,12 @@ export default function Home() {
             <p className="font-bold text-[2rem]">Hi, I&apos;m Leejun Kim!</p>
             <div className="text-gray-600 dark:text-indigo-200 mb-3 ">
               <p>🌀🐚 software engineer (backend, cloud, ai)</p>
-              <div className="flex gap-2 underline dark:text-indigo-300">
+              <div className="flex gap-2 mt-1">
                 <Link
                   href="https://github.com/lkim0402"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="textLink"
                 >
                   github
                 </Link>
@@ -63,6 +64,7 @@ export default function Home() {
                   href="https://www.linkedin.com/in/leejunkim/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="textLink"
                 >
                   linkedln
                 </Link>
@@ -98,6 +100,9 @@ export default function Home() {
             About this website
           </p>
         </section>
+        <div className="microsoftFont text-indigo-800">
+          🛠️ Tech stack: React, Tailwind CSS, NextJS, MDX, Vercel
+        </div>
         <ul className="flex flex-col list-disc pl-6">
           <li>
             My website was created around March 2025 as a personal (online)
@@ -108,29 +113,18 @@ export default function Home() {
             I&apos;m primarily inspired by{" "}
             <a
               href="https://austinkleon.com/show-your-work/"
-              className="underline text-blue-900 hover:text-blue-700 dark:text-blue-900 dark:hover:text-indigo-500 "
+              className="underline textLink"
             >
               Show Your Work
             </a>{" "}
             and{" "}
-            <a
+            <Link
               href="https://www.swyx.io/learn-in-public"
-              className="underline text-blue-900 hover:text-blue-700 dark:text-blue-900 dark:hover:text-indigo-500"
+              className="underline textLink"
             >
               Learn in Public
-            </a>
-            . I documented how I built this website in this{" "}
-            <a
-              href="https://www.leejunkim.com/post/67f4bb15c0b36b328779f8d4"
-              className="underline text-blue-900 hover:text-blue-700 dark:text-blue-900 dark:hover:text-indigo-500"
-            >
-              post series
-            </a>
+            </Link>
             .
-          </li>
-          <li>
-            🛠️ Tech stack: React, Tailwind CSS, Next.js, MongoDB driver/Atlas,
-            Vercel/Render
           </li>
         </ul>
       </section>

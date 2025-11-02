@@ -50,7 +50,7 @@ export default function RootLayout({
         <div className=" pt-0.5 pb-0.5 bg-blue-100 mb-10">
           <Header />
         </div>
-        <div className="mt-5 md:w-7/12 flex flex-col mx-auto text-md">
+        <div className="mt-5 md:w-7/12 flex flex-col mx-auto text-md children">
           {children}
         </div>
         <Footer />
