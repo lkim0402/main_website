@@ -26,13 +26,17 @@ function getPost(slug: string[]) {
   };
 }
 
-export default async function Post({ params }: { params: { slug: string[] } }) {
+export default async function Post({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>;
+}) {
   const { slug } = await params;
   const {
     frontMatter,
     // slug,
     content,
-  } = await getPost(slug);
+  } = getPost(slug);
   return (
     <article>
       <div className="border-b-2 border-dotted border-blue-300 mb-10">
