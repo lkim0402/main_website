@@ -33,8 +33,8 @@ export default function SectionDetails({
       <div className="flex-1 md:ml-6">
         {/* Render each role (subtitle) */}
         {subtitleArray.map((role, index) => (
-          <div key={index} className="mb-6">
-            <div className="mb-4">
+          <div key={index} className="mb-6 ">
+            <div className="mb-2">
               {/* title + desc */}
               <div className="flex ">
                 {icon && (
@@ -56,13 +56,13 @@ export default function SectionDetails({
 
                   {/* Company and Date (only show on first role) */}
                   {index === 0 && (
-                    <div className="text-gray-600 dark:text-gray-300 mb-1">
+                    <div className="text-gray-600 dark:text-gray-300 mb-1 ">
                       {orgLink ? (
                         <a
                           href={orgLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:underline textLink"
+                          className="hover:underline "
                         >
                           {title}
                         </a>

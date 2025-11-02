@@ -12,7 +12,7 @@ export default function PostLink({ path, title, date }: PostLinkStruct) {
         basis-[6.5rem] shrink-0 grow-0
          text-gray-600
          microsoftFont
-         pt-0.5
+         pt-[0.25rem]
          "
       >
         {date}
