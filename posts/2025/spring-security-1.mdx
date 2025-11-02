@@ -1,0 +1,491 @@
+---
+title: "Spring Security Assignment Notes 1 - Basics"
+date: "2025/10/01"
+Tags: [SpringBoot]
+Published: True
+---
+
+Recently I learned Spring Security and had to implement its basic features,
+so I'm writing this blog post to just organize what I did/learned and solidify my understanding.
+
+<br />
+Warning: Very many technical details about spring boot security
+
+# AuthController.java
+
+First, we have `AuthController.java` , which handles all endpoints related to authentication and authorization.
+
+```java
+@Slf4j
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController implements AuthApi {
+
+    private final AuthService authService;
+
+    // where client first calls to get the initial CSRF token
+    @GetMapping("/csrf-token")
+    public ResponseEntity<Void> getCsrToken(CsrfToken csrfToken) {
+    // this method creates token in CookieCsrfTokenRepository
+    // when the response is sent back, the HTTP response header includes Set-Cookie + created token
+    // then client saves that cookie (that includes the token)
+    String tokenValue = csrfToken.getToken();
+    log.debug("CSRF 토큰 요청: {}", tokenValue);
+    return ResponseEntity
+        .status(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
+        .build();
+    }
+    ...
+}
+```
+
+This assignment instructed us to use the Double Submit Cookie approach.
+
+- Basically when the client first calls the server to get the initial CSFR token, it calls this `getCsrToken` method. It's the first thing that's called when the application is run!
+- When the server responds with the csrf token, it includes the `Set-Cookie` header. The cookie includes a created, unique token.
+- Then the client receives the response, then saves the cookie (that includes that unique token) in the browser.
+
+  - XSRF-TOKEN is the conventional name of the cookie where the token value is stored. The actual token value will be a random string like a1b2-c3d4-e5f6-g7h8.
+
+- Now, in all future requests, the token is sent back to the server in 2 places simultaneously (hence a double submission):
+
+  - It sends a cookie (done automatically): The browser automatically includes the XSRF-TOKEN cookie with every request because it's stored for that domain.
+
+    - Once a cookie is set for a specific domain/server (e.g., `your-app.com`), the browser will **automatically include that cookie in every single subsequent request** to that same domain/server.
+
+  - 2 methods (manually):
+
+    - **Header (Modern API/SPA Approach)**: Frontend code reads the value from the cookie (that was saved earlier) and _manually_ adds it to a request header named X-XSRF-TOKEN.
+
+      - This is my assignment's main approach. Later in `SecurityConfig` , I set the CSRF token to be stored in `CookieCsrfTokenRepository` which tells SPring Security to NOT store the token in server but instead send it to the client in a cookie.
+
+    - **Request Parameter Method (More traditional)**: When the server first renders a page with a form on it, it includes the CSRF token in a hidden input field, like this: `<input type="hidden" name="_csrf" value="the-random-token-value">` . When the user submits the form, this hidden field is sent along with the other form data as a **request parameter** in the body of the request.
+
+- Now when the server receives the requests, it simply checks if the token in cookie matches the token in the header.
+
+```java
+// @AuthenticationPrincipal goes to SecurityContextHolder, gets the user's Authentication object
+// & extracts the "Principal" from it, the DiscodeitUserDetails instance created during login
+@GetMapping("/me")
+public ResponseEntity<UserDto> getUserInfo(
+@AuthenticationPrincipal DiscodeitUserDetails discodeitUserDetails) {
+
+if (discodeitUserDetails == null) {
+// return 401 Unauthorized instead of crashing with a 500 error
+return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+}
+
+return ResponseEntity.ok(discodeitUserDetails.getUserDto());
+}
+```
+
+This `/api/auth/me` endpoint is used to check the info of the currently logged in user. The frontend calls this application to get the current user's into (name, pfp, etc).
+
+- `@AuthenticationPrincipal DiscodeitUserDetails discodeitUserDetails`
+
+  - `@AuthenticationPrincipal` annotation tells Spring to go to SecurityContextHolder -> SecurityContext ->authentication -> principal -> cast it to DiscodeitUserDetails, pass it as method argument
+  - Then the api controller method can use the DiscodeitUserDetails (explained more later)
+
+Components:
+
+```none
+SecurityContextHolder (Global, thread-specific storage)
+└── SecurityContext (Container for the Authentication object)
+    └── Authentication (Represents the current user's identity and roles)
+        ├── getPrincipal() -> DiscodeitUserDetails object
+        ├── getAuthorities() -> List of roles (e.g., ROLE_USER)
+        └── isAuthenticated() -> boolean
+```
+
+- `SecurityContextHolder`
+
+  - It's a static utility class. Its primary job is to store the security information for the **currently executing thread**. It's thread-safe because it uses a `ThreadLocal` strategy which ensures that the information it holds is specific to the current request thread.
+  - It basically manages a map-like structure where the key is the current thread and the value is that thread's unique `SecurityContext` , so there is no possibility that the user's requests get mixed up with another.
+
+- `SecurityContext`
+
+  - A simple container object & it's only job is to hold the `Authentication` object (that's it).
+  - `SecurityContextHolder.getContext()` returns the `SecurityContext`
+
+- `Authentication` object
+
+  - It's the core component that represents the identity of the user for the current request.
+  - When a user successfully logs in, Spring Security creates an `Authentication` object and places it in the `SecurityContext` . It stores 3 key pieces of information:
+
+    - **Principal**: The object that identifies the user. After a successful login, the **principal is the** `DiscodeitUserDetails` **instance** that the `UserDetailsService` created from the database.
+    - **Authorities**: This is a collection of `GrantedAuthority` objects that represents the permissions or roles assigned to the user (e.g., `ROLE_ADMIN`, `ROLE_USER`).
+    - **Authenticated**: A boolean flag. After a successful login this is set to `true`.
+
+# SecurityConfig.java
+
+```Java
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
+
+    private final LoginSuccessHandler loginSuccessHandler;
+    private final LoginFailureHandler loginFailureHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf(csrf -> csrf
+            // decides *where* to save the CSRF token
+            // saves in HttpSessionCsrfTokenRepository by default (in server's session)
+            // CookieCsrfTokenRepository saves the token in client browser's cookie
+            // httpOnlyFalse allows JS to read the cookie because
+            //   client's script needs to read the cookie and send it thru HTTP header
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            // decides *how* to read/handle CSRF tokens -> SpaCsrfTokenRequestHandler
+            .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())
+            // disabling CSRF protection specifically for the H2 console path
+            .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+
+        )
+//        .formLogin(Customizer.withDefaults())
+        .formLogin(login -> login
+            // tells Spring Security to listen for POST requests to "/api/auth/login"
+            // caught by UsernamePasswordAuthenticationFilter
+            .loginProcessingUrl("/api/auth/login")
+            .successHandler(loginSuccessHandler)    // 로그인 성공 후 핸들러
+            .failureHandler(loginFailureHandler)      // 로그인 실패 후 핸들러
+        )
+        .logout(logout -> logout
+            .logoutUrl("/api/auth/logout")
+            .logoutSuccessHandler(
+                // Designed specifically for REST APIs
+                // Only job is to return a specific HTTP status code when logout successful
+                new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT))
+        )
+        // allowing the H2 console to be loaded in a frame
+        .headers(headers -> headers
+            .frameOptions(FrameOptionsConfig::disable)
+        )
+        .authorizeHttpRequests(auth -> auth
+            // these don't need authentication
+            .requestMatchers(
+                // Root, HTML/static files
+                "/",
+                "/index.html",
+                "/favicon.ico",
+                "/static/**",
+                "/assets/**",
+                "/*.js",
+                "/*.css",
+                "/*.png",
+                "/*.svg",
+                "/*.jpg",
+                "/.well-known/**",
+                // apis
+                "/api/users",
+                "/api/auth/csrf-token",
+                "/api/auth/login",
+                "/api/auth/logout",
+                "/api/auth/**",
+                // other stuff
+                "/h2-console/**",
+                "/swagger-ui/**",
+                "/v3/api-docs/**",
+                "/actuator/**"
+            ).permitAll()
+            // all other should be authenticated
+            .anyRequest().authenticated()
+        )
+        .exceptionHandling(ex -> ex
+            // authentication failure
+            .authenticationEntryPoint(customAuthenticationEntryPoint)
+            // authentication succeeded but cannot access resource (forbidden 403)
+            .accessDeniedHandler(customAccessDeniedHandler)
+        )
+        // persistent cookie -> gives new JSESSIONID if missing
+        .rememberMe(remember -> remember
+            .key("my-remember-key")
+            .rememberMeCookieName("discodeit-cookie")
+            .tokenValiditySeconds(7 * 24 * 60 * 60) // cookie expiration date (7 days)
+            .rememberMeParameter("remember-me")
+        )
+        // blocking concurrent logins
+        .sessionManagement(management -> management
+            .sessionConcurrency(concurrency -> concurrency
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry())
+            ))
+    ;
+    return http.build();
+    }
+```
+
+- SecurityConfig is literally like the master rulebook or the central configuration for the entire security setup.
+
+- The `@EnableWebSecurity` annotation is like a big switch that turns on all the security features
+- We define a series of instructions (as `@Bean` methods) that tell Spring Security exactly how to behave. The most important set of instructions is the `SecurityFilterChain` :
+
+  - `.csrf(...)`: **Cross-Site Request Forgery** protection. Prevents attackers from tricking users into submitting malicious requests without their knowledge.
+
+    - As mentioned earlier, by using `CookieCsrfTokenRepository` , the cookie is sent to the client in a cookie instead of the default `HttpSessionCsrfTokenRepository` , which saves in the server.
+    - `.withHttpOnlyFalse()` : allows JS to read cookie
+    - `.csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())` : We tell spring explicitly how to find & validate the token when request comes in. The `paCsrfTokenRequestHandler` knows how to look for the token value sent in the appropriate cookie/header and compare them.
+
+  - `.formLogin(...)`: Sets up how users log in with a username and password.
+
+    - `loginProcessingUrl("/api/auth/login")`: Tells Spring Security that we want to treat any POST requests to this URL as a valid login attempt (thus we don't implement this in the controller)
+    - `successHandler(...)` and `failureHandler(...)`: Telling Spring Security to use custom classes to decide what to do after a successful or failed login (e.g., return a specific JSON response).
+
+  - `.authorizeHttpRequests(...)`: Where you define your access rules:
+
+    - `requestMatchers(...).permitAll()`: Listing all the URLs that **anyone can access** _without_ logging in (e.g., the homepage, login page, static files).
+    - `anyRequest().authenticated()`: Catch-all rule that says that any remaining URL not listed above the user MUST be logged in.
+
+  - `.exceptionHandling(...)`: Defines what happens when security rules are broken.
+
+    - `authenticationEntryPoint(...)`: Handles **Authentication** failures (HTTP 401 Unauthorized). This is when a user who isn't logged in tries to access a protected page.
+    - `accessDeniedHandler(...)`: Handles **Authorization** failures (HTTP 403 Forbidden). This is when a logged-in user tries to access something they don't have the permission for (e.g., a regular user trying to access an admin page).
+
+  - `.sessionManagement(...)`: Controls user login sessions.
+
+    - RN it's configured it so that a user can only be logged in from **one place at a time** `maximumSessions(1)`). The old session is invalidated if they log in on a new computer.
+
+## Request/Response flow example with CSRF token
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1759310590/h3vro9aq7q7d7x5wkmdu.png)
+
+# Custom UserDetails/UserDetailsService
+
+- `UserDetailsService`
+
+  - A service **interface** which only job is to load user-specific data from the application's repository.
+  - Only 1 method to implement: `loadUserByUsername(String name)`
+
+- `UserDetails`
+
+  - An **interface** that represents a **user** in a format that Spring Security can understand.
+  - An object that implements `UserDetails` must provide at least three key pieces of information (which we will do)
+
+    1\. `getUsername()`: The user's username.
+
+    2\. `getPassword()`: The user's **hashed** password from the database.
+
+    3\. `getAuthorities()`: A collection of permissions the user has (e.g., `ROLE_USER`, `ROLE_ADMIN`).
+
+- Basically the standard approach is to implement them for any normal apps lol. Without these Spring Security would have no way to connect to my application's specific user entity.
+
+  - We implement UserDetailsService to teach Spring Security how to find a user in my system
+  - And UserDetails to teach Spring Security how to get the password, roles, and status from the app's user object
+
+My custom implementation of UserDetailsService (`DiscodeitUserDetailsService` )
+
+```java
+@RequiredArgsConstructor
+public class DiscodeitUserDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
+    @Override
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+    Optional<com.sprint.mission.discodeit.entity.User> optionalUser = userRepository.findByUsername(
+        name);
+    com.sprint.mission.discodeit.entity.User user = optionalUser.orElseThrow(
+        UserNotFoundException::new);
+
+    // converting the user's roles from the database to the format Spring Security needs
+    Collection<? extends GrantedAuthority> authorities = List.of(
+        new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
+    return new DiscodeitUserDetails(userMapper.toDto(user), user.getPassword(), authorities);
+    }
+}
+```
+
+- Basically what we have to do is:
+
+  - Take the incoming `username` string.
+  - Query the app's `userRepository` to find the corresponding user in the database.
+  - If the user is found, **wrap** your user entity into an object that implements `UserDetails` and return it (We also implement `UserDetails` later).
+
+    - For roles, the user stores the role as an enum. We basically have to add the `ROLE_` prefix to make the application's roles compatible with Spring Security's built-in `hasRole()` expression.
+
+  - If the user is not found, you throw a `UsernameNotFoundException`.
+
+And of UserDetails (`DiscodeitUserDetails`)
+
+```java
+@Getter
+@RequiredArgsConstructor
+public class DiscodeitUserDetails implements UserDetails {
+
+    private final UserDto userDto;
+    private final String password;
+    private final Collection<? extends GrantedAuthority> authorities;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+    return this.authorities;
+    }
+
+    @Override
+    .... // overrides isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, isEnabled by just returning true
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+    if (this == o) {
+        return true;
+    }
+    if (!(o instanceof DiscodeitUserDetails that)) { // includes null
+        return false;
+    }
+    return Objects.equals(this.getUserDto().userId(), that.userDto.userId());
+    }
+
+    @Override
+    public int hashCode() {
+    return Objects.hash(this.getUserDto().userId());
+    }
+
+}
+```
+
+- It's just like a data container that is use dto wrap the app's own User entity, and as seen earlier it's used in `UserDetailsService`.
+- About overriding `equals` and `hashCode`
+
+  - In order to guarantee that sessions should be unique, Spring boot's official docs tell us that we must override these methods, because the default `SessionRegistry` implementation in Spring Security relies on an in-memory Map that uses these methods to _correctly identify and manage user sessions_.
+
+# Sessions
+
+A while ago, in SecurityFilterChain, we had this part:
+
+```java
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
+
+    private final LoginSuccessHandler loginSuccessHandler;
+    private final LoginFailureHandler loginFailureHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        ..... (other stuff)
+        // blocking concurrent logins
+        .sessionManagement(management -> management
+            .sessionConcurrency(concurrency -> concurrency
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry())
+            ))
+    ;
+    return http.build();
+    }
+    .....
+    // acts as a logbook or tracker for sessions
+    @Bean
+    public SessionRegistry sessionRegistry() {
+    return new SessionRegistryImpl();
+    }
+
+    // listener that ensures when a session naturally expires (e.g., due to a timeout), it's properly removed from the SessionRegistry
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+    return new HttpSessionEventPublisher();
+    }
+}
+```
+
+My assignment also required me to prevent a user from logging in from multiple places at once.
+
+Main components:
+
+- In `SecurityFilterChain`:
+
+  - `sessionManagement()`: The main entry point for configuring all rules related to HTTP sessions in Spring Security.
+  - `sessionConcurrency()`: Lets you set up rules specifically for concurrent (simultaneous) sessions for the same user.
+  - `.maximumSessions(1)`: Dictates that a single user account can only have **one** active session at any given time.
+  - `.maxSessionsPreventsLogin(true)`: Defines what happens when a user with an active session tries to log in again from a different browser or device. Because it's set to `true`, the **new login attempt will be rejected**. (If it were `false`, the old session would be kicked out, and the new one would be allowed).
+
+- `SessionRegistry`
+
+  - Acts as a **logbook or tracker** that keeps a list of **all currently active sessions and which user they belong to**. The `.maximumSessions(1)` rule relies on this registry to check if a user already has an active session.
+
+- `HttpSessionEventPublisher` (a helper bean)
+
+  - A listener that ensures when a session naturally expires (e.g., due to a timeout), it's properly removed from the `SessionRegistry`. It keeps the logbook clean and accurate.
+
+I also had to manually log out a user out if their permissions change:
+
+```java
+@Slf4j
+@RequiredArgsConstructor
+@Service
+public class BasicAuthService implements AuthService {
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final SessionRegistry sessionRegistry;
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
+    public UserDto updateRole(RoleUpdateRequest roleUpdateRequest) {
+    UUID userId = roleUpdateRequest.userId();
+    Role role = roleUpdateRequest.role();
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> UserNotFoundException.withId(userId));
+    user.updateRole(role);
+
+    // find the user's principal in the SessionRegistry and expire their active sessions
+    List<DiscodeitUserDetails> currentUserDetailsList = sessionRegistry.getAllPrincipals().stream()
+        .filter(p -> p instanceof DiscodeitUserDetails)
+        .map(p -> (DiscodeitUserDetails) p)
+        .toList();
+
+    currentUserDetailsList.stream()
+        .filter(d -> d.getUserDto().userId().equals(user.getId()))
+        .findFirst()
+        .ifPresent(userDetails -> {
+            List<SessionInformation> sessions = sessionRegistry.getAllSessions(userDetails, false);
+            sessions.forEach(SessionInformation::expireNow);
+        });
+
+    return userMapper.toDto(user);
+    }
+```
+
+# Notes on the summary flow
+
+Creating new user:
+
+- It doesn't really involve Spring Security features but it follows a typical layered architecture flow (controller, service, repository).
+
+Logging in:
+
+1.  A user submits their username and password.
+2.  Spring Security creates an `Authentication` object containing only these raw credentials. This object is marked as **unauthenticated**.
+3.  This unauthenticated `Authentication` object is sent to the `ProviderManager`.
+
+    - `ProviderManager` is a default implementation of the manager `AuthenticationManager` , and its job is to manage a list of `AuthenticationProvider` s; It doesn't really do the work itself, but it delegates the work.
+    - When it receives a login request, it asks each provider if it can handle this type of authentication, and finds one that can (like `DaoAuthenticationProvider` for a username/pw) & passes the request to that provider to do the actual work.
+    - So now, the `ProviderManager` gives the object to the `DaoAuthenticationProvider`.
+
+      - `DaoAuthenticationProvider` is the most common implementation of `AuthenticationProvider` .
+
+4.  The `DaoAuthenticationProvider` uses the implemented `UserDetailsService` to fetch the `UserDetails` for that username.
+5.  The `DaoAuthenticationProvider` uses the `PasswordEncoder` to verify the password.
+6.  If successful, the provider creates a **new** `Authentication` **object**. This new object is fully populated:
+
+    - The `UserDetails` object is set as the "principal."
+    - The user's roles (`authorities`) are copied from the `UserDetails`.
+    - It's marked as **authenticated**.
+
+7.  This fully authenticated `Authentication` object is returned and placed in the `SecurityContextHolder`, where it stays for the duration of the user's session.

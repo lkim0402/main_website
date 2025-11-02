@@ -1,4 +1,4 @@
-import PostLink from "../../components/postLink"; // Assuming you'll use this later
+import PostLink from "../../components/post/PostLink"; // Assuming you'll use this later
 import PageTitle from "../../components/PageTitle";
 import fs from "fs";
 import path from "path";
@@ -71,16 +71,18 @@ export default async function Workshop() {
           <div className="flex flex-row "></div>
           <div>
             {/* This map will now work correctly */}
-            <ul className="space-y-4">
-              {blogs.map((blog) => (
-                <li key={blog.slug}>
-                  <PostLink
-                    path={blog.slug}
-                    date={blog.formattedDate}
-                    title={blog.meta.title}
-                  ></PostLink>
-                </li>
-              ))}
+            <ul className="">
+              {blogs
+                .filter((blog) => blog.meta.Published)
+                .map((blog) => (
+                  <li key={blog.slug}>
+                    <PostLink
+                      path={blog.slug}
+                      date={blog.formattedDate}
+                      title={blog.meta.title}
+                    ></PostLink>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

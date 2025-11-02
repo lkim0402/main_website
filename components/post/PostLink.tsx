@@ -1,17 +1,19 @@
 // import Link from "next/link";
-import { PostLink as PostLinkStruct } from "../types/post";
+import { PostLink as PostLinkStruct } from "../../types/post";
 // import React from "react";
 import Link from "next/link";
 
 export default function PostLink({ path, title, date }: PostLinkStruct) {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row items-center ">
       {/* Date */}
       <div
         className="
         basis-[6.5rem] shrink-0 grow-0
          text-gray-600
-         microsoftFont"
+         microsoftFont
+         pt-0.5
+         "
       >
         {date}
       </div>

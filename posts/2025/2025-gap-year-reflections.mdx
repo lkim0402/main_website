@@ -1,0 +1,413 @@
+---
+title: "Gap year reflections"
+date: "2025/04/05"
+Tags: [Retrospective]
+Published: False
+---
+
+<img
+  src="https://res.cloudinary.com/dwa6lkvcr/image/upload/v1744638685/crwqwjxti4nd6lxemeyv.jpg"
+  className="w-[40rem]"
+/>
+
+\[WARNING\] this post is VERY LONG!!! It has lots of snippets about my experiences and thoughts throughout one entire year.
+They're also mostly geared towards my career/CS stuff, so lots of personal details are omitted.
+
+# 2024
+
+## Aug - Dec
+
+### First internship at Artygenspace
+
+*Note- I'm gonna write this here because I know I prob will procrastinate and not write my reflections anywhere else*😭
+
+My internship interestingly was centered around AI/ML (using LangChain) and Unity development. I do think I was lucky to get in,
+and it was probably because of previous projects and I was able to express my comminucation/leadership skills,
+which I think they liked.
+
+<br />
+These were the things I was assigned to:
+
+- Arpedia RAG pipeline
+
+  - I was basically assigned to build a Python-based system that analyzes the meaning of real-time text input to recommend the most relevant audio from a csv database of over 1,000 sound effects. Basically it was a system that was part of a project for children's books named `Arpedia`. The idea was that a software connected to a tablet would scan the page of a children's book, extract the text, and give an audio that narrates the text with the appropriate sound input. So if the text was something like "It is raining", then the output after the pipeline would be "It is raining (raining sound)", and the phrase `raining sound` would be mapped to a sound effect. The sentence text augmented with sound would then get passed on to the next step.
+  - So I had embedded the csv sound effects to a vector store named `ChromaDB`. Then if a query comes in, the pipeline would convert the query to a vector and search the sound data vector store (chromadb) and return the closest matching one. Then the pipeline would grab the original query + the matching sound + and the prompt (which tells that the query and the sound should be combined together), and the pipeline would return the final query.
+  - I used LangChain, and was able to optimize the system's search performance and response speed by benchmarking various Korean embedding models and LLMs from HuggingFace. I also had to increase the LLM's response accuracy through lots of prompt engineering, which took lots of trial and error 😅
+
+- `Wyft`
+
+  - This was a mobile application made in Unity/C#, a real time interactive AR application which allowed people to join and throw small beans at a large basket anchored in a fixed space. The user would have to look around in their smartphone to find the beans, which would be spawned around the user's location (the 3D beans would be falling on the real life floor). Then the user can pick the bean up when clicked, and throw the bean at the basket. The basket can also only be seen through the phone, and the basket will slowly open as the number of hits increases. Then the last person to hit the basket with the bean gets to win a prize.
+  - My tasks
+
+    - Implement an algorithm for generating falling beans around the user (circular). It should fall regularly (not too fast nor too slow).
+    - Integrate the camera feature of the app so that when the app is opened the camera would be opened too
+    - Develop the logic for real-time state management of the central object (the large basket), such as its remaining health
+    - Resolve mobile device fragmentation issues through cross-platform testing and debugging - this was a bit of a pain because for some reason, some parts of the application worked and didn't work depending on the devices☠️
+
+  - I worked with 2 developers (one person was a backend engineer, the other person was an IOS developer). They were both amazing lol, I learned a lot through how they approached work. They were especially exceptional at documenting their work progress and logging all their troubleshooting, which looking back I should have done the same (because I have to rely on my memories now RIP), but I guess my mind was just like "Ohh cool" and didn't really follow their example... Well lesson learned😭
+
+- Other fun applications
+
+  - `Cosmic Flip` : This was a project done with another intern, and it's a fun XR game developed in Unity.
+    It's XR because we would project the game onto the floor (like a movie) and set special monitoring cameras/equipment
+    around the projection area.
+    It's a multiplayer game where cards are distributed randomly around the area, equally divided by red and blue.
+    Then 2 people could basically enter their name in the application, then actually stand on the projected area in person
+    (so the projection would be below them). Then when one person steps onto the card, it flips - the equipment around the
+    projected area actively inputs data into the application in real time. The front of the card is red, and the back is blue.
+    So under a set time limit, the goal of the 2 players is to step on as many cards as possible to increase the score count
+    (card count) of their team, which would be either blue or red. We basically had to integrate **real time LiDAR sensor data** as
+    well as developing the game. It was such a fun & new experience!!!
+
+          - Also I almost forgot to mention but the reason why it's called Cosmic Flip is because we decided to make the game space themed xD We even made actual lore to the game lol, like the red and blue both had planets to protect & they were both at a huge war, and the card flips meant more territory HAHA. I remember we were going around the Design team and asking for character/bg designs (which btw they cooked). This is what the prototype kinda looked like:
+
+<img
+  src="https://res.cloudinary.com/dwa6lkvcr/image/upload/v1758896117/q6rlwamlx514fios9ibv.png"
+  className="w-[30rem]"
+/>
+
+- `JengaX` (Apple Vision Pro): I actually had begged the team to join because I really, really wanted to try using the Apple Vision Pro xDD They actually let me in and I remember being _super_ excited. We basically developed this Jenga prototype where the jenga blocks are laid in front of you and it's your goal to.. well do jenga. So when a player wears the VR headset, they could enter their name. As long as the app is open, it keeps track of the rankings of all the other players & their scores.
+
+- The company was shifting to a XR driven approach in entertainment, meaning interns and full time workers both had to engage in
+  the new projects, and I just happened to start an internship there at that timing.
+- We also had a cool company day where we got to have a small exhibition of all the projects, including Cosmic Flip and JengaX.
+  Even though I was part of both teams I got assigned to the Cosmic Flip booth.
+  At the end of the day ppl got to vote which booth was the best, and our booth (Cosmic Flip) happened to get the most votes so hurray!
+- Other tasks
+
+  - I was assigned to conduct weekly research (1 hour) on the latest AI technology trends and papers, and give regular presentations to a team of over 20 members. Other than this, I was sometimes assigned to give do research and give presentations on whatever my manager would give me, like topics about: the current OCR tech, expanding companies to the US, etc.
+  - I was also assigned lots of bug testing for their programs, sort of like a QA. I had to go through lots of time and jot down the errors/bugs in a huge google spreadsheet.
+
+The company gave udemy business accounts for employeers, so I went through a Unity course via the company's account. The company is actually a Unity-main company, and naturally I picked up Unity as well (which also helped me apply some knowledge to work at Makeability Lab @ UW for SonoCraftAR). The internship lasted for 5 months, I've met some amazing and supportive people there, and learned more in depth about meetings, code reviews, teamwork, etc.
+I've also started become more interested in AR, VR, graphics, and creative media, and started dabbling in p5.js.
+
+# 2025
+
+After the internship, I was still pretty lost lol. The internship lasted from September 2024 to December 2024, so January 2025 was pretty... interesting.
+
+Generally, 2025 is the year where I really, really had lots of time to reflect on how I wanted to structure my career on CS. Up until this point I still thought I was going to go AI, but I realized that it's not.... for me? Although I love AI and I love learning about AI, I realized that AI largely is divided into theory+research / AI engineering / embedded, which I just trealized that I didn't particularly..... want to pursue as my career. I realized that I don't really really enjoy math, which already contradicted A LOT with the general AI career path because it gets really (intensely) math heavy.
+
+And along with this a career crisis, my family's financial situation suddenly overlapped with everything and suddenly everything was chaotic and very bad. I thought I needed to take a gap year, build solid foundations, maybe get a part time job/internship and help my family earn my tuition, and then return as a brand new person.
+
+(Also a note, the portions between Jan to May will be quite short because I didn't really document/log my thoughts or whatsoever, but it will get longer later haha)
+
+## Jan - May
+
+### Actually learned full stack (Jan - Mar)
+
+Before this gap year, I didn't have a good grasp of how full stack applications actually worked. So first I used this time to learn HTML/CSS/JS and React and Tailwind, differences between frontend / backend, SSR/CSR, etc. Some resources that I found really helpful are:
+
+- [The official next.js react & app router docs](https://nextjs.org/learn)
+- [Toss's frontend fundamentals (kor)](https://frontend-fundamentals.com/)
+- [The Typescript handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [mdn docs (the bible)](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works)
+- [Angela's web dev course on udemy](https://www.udemy.com/course/the-complete-web-development-bootcamp/?utm_source=adwords&utm_medium=udemyads&utm_campaign=Search_DSA_Beta_Prof_la.EN_cc.ROW-English&campaigntype=Search&portfolio=ROW-English&language=EN&product=Course&test=&audience=DSA&topic=&priority=Beta&utm_content=deal4584&utm_term=_._ag_162511579404_._ad_696197165421_._kw__._de_c_._dm__._pl__._ti_aud-2268488108639:dsa-1677053911088_._li_9195964_._pd__._&matchtype=&gad_source=1&gad_campaignid=21168154305&gbraid=0AAAAADROdO3siwuRq5_guhvtUYU99EtJK&gclid=CjwKCAjwwNbEBhBpEiwAFYLtGOk8ndMe3UAkowr-Zi98uNZM75kmu0NmCi-jI5yILMkBPE0sPnSMtBoCC9UQAvD_BwE)
+- [Josh Comeau's blog](https://www.joshwcomeau.com/react/)
+
+I took down notes in Obsidian for parts I found confusing/hard to remember. The more I learned I realized I just scratched the surface.
+
+Also, learning all these stuff led me to finally make my website/blog. 10/10 experience haha,
+mostly because I've wanted to start a blog for a very long time and I finally have one. I learned that one of the
+most satistying feeling is using your own custom CMS to manage your own blog posts. Kinda wraps back to the thoughts
+in the 1st section, but it's somewhat rewarding to use the tools that you've made it yourself.
+
+<img
+  src="https://res.cloudinary.com/dwa6lkvcr/image/upload/v1744809006/oillakjvdym6qhxuv6qq.png"
+  className="w-[40rem]"
+/>
+
+One thing I realized is that I started to read more docs & articles. <br/>
+This one kinda surprised me when I realized, because ever since I remember I always preferred watching videos over reading when it came to learning. I think it's a natural shift because the more you learn, you will need more and more advanced resources, which naturally leads to fewer resources that are easy to access (such as videos). I found that written materials often provide the depth and detail that more complex topics need.
+
+Also it's thanks to this blog that I actually was able to get rid of imposter syndrome by a lot, although not completely.
+
+This is pretty much the result of the blog:
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1753436339/nwkamimac8entdfxjahw.png)
+
+I have loooots of ideas that I want to add onto this.. For example a guestbook feature, adding more widgets, fun mini games on the website, p5.js interactive viz, and generally more art.
+
+### Pirate Game jam - Crown of Persuasion (Feb)
+
+I've always wanted to join a game jam. I finally achieved my dream this year! Thanks to my friends who joined me on this project! :)
+
+One thing was that everyone was busy (except for me coz I was a gap year student) so I'm glad we pushed through this project and actually submitted it.
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1747974004/oa1yu1fztcdjucvqwyx5.png)
+
+_our figma jam_
+
+<img
+  src="https://res.cloudinary.com/dwa6lkvcr/image/upload/v1747975446/i0o62wokx4oyhgi5ebwu.jpg"
+  className="w-[30rem]"
+/>
+
+I actually also got to draw the characters (designed initially by my friend), the main cover art, and some tidbits.
+
+We even got feedback from different ppl who played it, and a feedback from the judges!
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1747972633/ndra00r15cxsoyruskb4.png)![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1747972653/jptlqhjiocnctnuswa7x.png)
+
+thoughts
+
+- One thing is to actually know how to make ur plans more realistic. Our team fell into this trap where we were planning out too much. Since our game was a visual novel type, we overplanned and made very many routes and endings depending on the choice of the player, but ended up implementing only 3.. Definitely lesson learned :'))
+- We ended up submitting the version that still had some bugs in it.. TT will definitely need to fix those someday
+
+- I realized that while I do like game dev (and playing games too), I didn't want to pursue it as a career. Up until this point I actually had solid experience in game dev (internship & this game) & I was actually getting contacted by recruiters, but I ended up making up my mind of not going this path because I thought the market was too narrow, especially for an international student like me.
+
+### AWS Cloud Practitioner Certification (apr)
+
+[I wrote an entire blog post about this.](https://www.leejunkim.com/post/67f0c095fcb9c719cf0c1678)
+
+This also made me more interested in cloud, and I thought it was a good opportunity to connect it with my study for backend.
+
+## May - July
+
+Welp, from this point, I still felt that I lacked solid projects or whatsoever. I felt like my projects did not have any depth to them, and my knowledge felt very superficial.
+
+I also have been actually been applying to various internships, but obviously my resume was more tailored towards AI engineering and game dev, so the companies just rejected me for SWE roles.
+
+<img
+  src="https://res.cloudinary.com/dwa6lkvcr/image/upload/v1744638605/o9wna5unvrnv5ryjaeno.jpg"
+  className="w-[10rem]"
+/>
+And my family's financial situation was not going well too, and as an international
+I felt _extremely_ anxious to land a job (albeit an internship, or a freelance job),
+and actually secure a job for after graduation. In order to do either, I had to start
+polishing my portfolio again. So as a combination of my family's struggles, my anxiety
+in getting a job, and all external factors that went into play (the current policital
+news with international students and their visa status/job market etc), I just knew
+I wasn't ready to go back just yet.
+
+### Start of bootcamp - Java SpringBoot + AWS (May)
+
+I remembered my friend did a bootcamp in data science, and after that she was able to secure 2 internships. She mentioned her 1st interview mostly talked about her projects that were done in the bootcamp, mentioning that it helped a lot when talking with recruiters.
+
+Since this will get quite long here's a separate blog post about the bootcamp itself.
+
+### Makeability Lab - Submitted SonoCraftAR (July)
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1754546265/qmuj0lcbcmutvbwg7xgo.png)
+
+I joined Makeability lab last year September, right around when I started my first internship. I remember being pretty nervous about the interview, but it went very casually and luckily I got accepted :D
+
+But...The research experience was.. not really what I had expected haha. It was my first time involved in a research project with a topic that I had liked (VR/AR!), so obviously I had fun & using Unity/C# overlapped a lot with my internship so that definitely helped a lot. But as for the research experience itself, it felt very much like searching through unresearched territory. It was very different from the typical assignments from classes at UW or my internship experience; It felt way more unstructured with much more creative freedom. Of course this doesn't really stand for ALL research experiences, but since research is a field where you have to create projects with new ideas, it gave leeway for more experimentation and thinking. On the other hand, the downsides were that there wasn't really a guarantee if the project held realistic deadlines or standards.
+
+During the course of our project, there were so many times that I felt as if the paper couldn't make it. I think here were some aspects that we could have handled better as a team:
+
+- A more structured guideline for our project - I realized the importance of having concrete, structured guidelines. During the course of our project, we changed course several times dabbling in this and that, and we did this quite often. We also experimented with different ideas, like capturing screenshots within Unity and sending them to AI agents, integrating images of "good/bad examples" when prompting GPT, integrating RAG into our project, etc. But we couldn't really notice an improvement performance-wise, and they were taking up too much of our time when we were trying to not miss the deadline.
+- Better documentation - Since everyone was busy we didn't really have time to write/organize proper documentation for our project, so our test cases/code/code got really messy earlier on. This is something that I still struggle doing, but I still think that we could have done this better.
+- Basically better project management? We could have aimed for bigger conferences like CHI or UIST, but during the year there were lots of days-months where everyone was too busy to continue our project. So we aimed for the ISMAR IDEATExR workshop, which had a later deadline. Luckily, it got accepted! Our hope is to expand this into a full paper next.
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1754663175/mku9hcl4vbrtolxkkar1.png)![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1754546531/b79td7gtjegmpydcopgy.png)
+
+The above is the diagram I collaborated with my teammate to illustrate our project. It got a name called `SonoCraftAr` . Basically it's a HoloLens system that enables DHH (deaf and hard-of-hearing) users to create their own personalized, real-time sound-reactive interfaces in AR using typed user-based prompting. The main goal is to give personalized authoring for DHH users.
+
+That is how it looks in person through HoloLens with user input `pulse` :)
+
+## August
+
+### Finished 1st Spring Boot project - Findex
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1754668811/p3uwnedi55dhutgozs1z.png)
+
+So it was the time for our 1st project. We could choose between 2 options but we decided to do `Findex`.. which was apparently the harder option and none of us had realized it until we were told later lol.
+
+Basically, `Findex` is a dashboard that provides the latest financial indices by linking with an external Open API (getting real time data).
+
+**My roles - Dashboard Developer and Team Leader**
+
+- Developed the `ExternalController` layer to call & receive the data from Open API from [https://www.data.go.kr/index.do](https://www.data.go.kr/index.do)
+- Dashboard
+
+  - Created the `Controller`, `Service`, and `Repository` layers for the Dashboard, using Spring Boot and Spring JPA
+  - Made custom queries using JPQL
+  - In `Service` layer:
+
+    - Getting + calculating performance for the favorited IndexInfos
+    - Calculating the time series data using the _sliding window algorithm_ to show the chart in the dashboard
+    - Solving the `N + 1` query problem by writing custom queries and reducing to a constant number of calling 3 queries total
+    - Getting + calculating _performance rankings_ for the requested IndexInfo ids
+
+- Making the powerpoint slides, managing Github issues + project and Notion Todo Lists, etc
+
+Some thoughts
+
+- The project itself was manageable, but during the project one team member ghosted us so there were some communication issues... BUT in the end everything turned out all right. I'm thankful for our team to actually stay up at night even during the weekends to meet the deadline. (SPOILER: we didn't meet the deadline unfortunately because some bugs were still left, but we managed to fix most of them later lol)
+- I also got much more familiar with git and github itself.. especially with all the branch merging and commits and issue cards and PRs that we had to go through. We had to kind of learn the hard way because we would sometimes mess git up by accident, and that made us focus on the bugs more than writing the code itself.
+- Learned about stocks a bit more too xD
+- Deploying to Railway with PostgreSQL was PAIN. We stayed up until about 4 am trying to debug the issue.
+- I had written a much more detailed report of this project along with a PPT, and maybe if I remember I'll also put them here in my blog :') This is also the point where I really learned the importance of documenting everything.... it's so easy to forget the details of your project and how you wrote your code. I think it's especially important to write down what you trouble shooted because high chance you will run into the same bug again.
+
+### Other thoughts
+
+- The bootcamp was almost halfway finished, and I learned a TON. As in, it was like learning a whole new world that I didn't know existed lol. It was quite lonely(?) at times because everyone around me and all my friends seemed to be focusing on NodeJS, which made me doubt my choice of choosing Spring Boot. I've chosen Spring Boot because 1) I am an international student and I wanted to stand out in a sea of nodejs, 2) I wanted to get an internship in korea before returning back to UW and almost every company uses Java Spring Boot here, and 3) I wanted to aim for a finance/ecommerce or a related firm and aim for stability instead of the changing tech-focused companies (although if they gave me a chance I would go there haha). BUT I realize that it was ok that I've chosen Spring Boot, coz I've gained the confidence that I will be able to learn the tech I needed to if I had to, and that's the way to become a skilled dev (to not be limited to a specific tech stack). And to add I'll have to go back to NodeJS anyways because my blog's backend stack is NodeJS lol.
+- Time management was a difficult. The bootcamp was 9-7, and the schedule was mixed between lectures and hands-on assignments.. So I would organize the current day's notes after the bootcamp ends, take a short walk + dinner, then BAM day is over.
+- Also, I realize there's TONS of stuff to learn and I've just hit the iceberg - queues, caching, Redis, kafka, rabbit mq, microservices, cloud architectures, query optimization, etc etc... I also wanted to take the Solutions Architect Associate certification, but I think I will have to do that after my bootcamp.
+
+  - It's easy to be overwhelmed but I think the important step to take is just focus on what you have on your plate right now.
+
+- There are so many insane people out there. As in, there were 10x developers who is simultaneously a student, a team leader, a startup founder, etc etc while managing to secure internships, research opportunities, and finish amazing projects. It seemed like they can squeeze 10x the work intensity compared to how I grind.... How? I was reading some blog posts about this guy who's pursuing a Masters in CS as an international student, and he seemed to be managing research + all CS classes + internship + leetcode + visa issues + preparing for marriage + hitting the gym....all very well with a solid timeline. It really got me thinking in a way...........
+- Started playing Overwatch 2, minecraft :)
+- TODO
+
+  - make anki
+  - review data modeling + sql queries
+  - leetcode pleaseee
+
+## September
+
+### Finished 2nd project - MoNew
+
+![](https://res.cloudinary.com/dwa6lkvcr/image/upload/v1758546294/ejuym98ygsubpfbzaxjt.png)
+
+Beginning of September until almost the end, I participated in the bootcamp's 2nd project - MoNew, a personal news customization app.
+
+My roles were:
+
+- Build a _user activity_ tracking API using `Spring Event Listener` for asynchronous processing and `MongoTemplate` to store query-optimized data in `MongoDB Atlas` -> purpose is to eliminate costly database `JOIN` operations
+- Automate a data backup and recovery system for articles using `Spring Batch`, `Spring Scheduler`, and AWS S3 -> purpose is to ensure data integrity by performing scheduled daily backups and enabling date-based article restoration
+- Develop the CI/CD pipeline with GitHub Actions, Docker, and AWS ECS -> was able to reduce deployment time by 95% (1 hr →3 mins)
+
+  - Build the image using docker's multi stage builder
+
+- Provision & configure the core AWS infrastructure, including IAM, RDS, EC2, and S3, to support the application's backend services
+- Film the demonstration video xD (posted above, uploaded on youtube)
+
+Thoughts after the project:
+
+- For some reason, this project felt much more manageable and less difficult than the 1st project despite the workload. I do want to think that it's because I've gotten used to building applications in SpringBoot, but maybe it's also because lots boilerplate code were repeated from the last project.
+- I got more confortable with cloud. With the AWS CCP, I had known the cloud services in theory but it was my first real project that gave me hands-on practice on using them (ECR, ECS, S3, CloudWatch, RDS). I had lots of bugs and trial and error from configuring them alone, but in the end I got to know the services deeper & I had gotten more confident.
+- Using MongoDB to store the user activities taught me a new software architecture pattern (if you even call this that way haha), where you can optimize queries using a "copy" of the data that's made purely for reading purposes. Also I didn't really know deeply about MongoDB, so it gave me lots of chances to practice. It even kinda motivated me to go deep into MongoDB for my own blog (which I will when I gain the time).
+- Our team leader was epic, she was a master of handling all tasks and delegating stuff, handling the schedule, and generally project management. I learned a lot from her.
+- I learned that I was weak with details, and I realized that understanding something was not enough. Sometimes, I just needed to brute force memorize lol.
+
+### Other thoughts this month
+
+- This month was the month where Silksong had came out and I was actually so hyped to play it :D
+
+  - Playing games actually helped me alleviate lots of stress (thank you PEAK, silksong, PUBG, and Overwatch lol)
+
+- I also started applying for internships in Korea around this time but there were only like 3-5 openings and I got rejected just through my resume.. so.. :'))
+
+  - After finishing the bootcamp & gaining one internship, I'm planning to make my own failure resume xD It's gonna be interesting (and maybe funny but depressing too)
+
+- I started making moodboards for fun! I used Procreate for this one. I'm planning to make a category somewhere in my blog that just contains all these moodboards.
+- This month was also the month were there happend to be LOTS of chaotic situations for my family and friends.... I genuinely think that if I was a bit younger I would have freaked out but surprisingly I handled it pretty well. I guess that meant I grew up? I think i had gotten mentally stronger.
+- I haven't touched JS and React in like 4 months, so when I opened my past projects they looked like alien hieroglyphics LOL. But the memories are kinda coming back as I just go through my Obsidian notes. Hopefully I can recover(?).
+
+  - I really want to categorize my blog posts in a more complex manner (with subcategories, updating my CMS dashboard, etc etc), but I will have to dive deeper into React, NextJS and MongoDB..which I don't really think I have the time rn. But it's definitely in my TODO list.
+
+- This month just actually flew past by.... time moves on too quickly
+
+### Feels like I understood something
+
+- I started getting serious on leetcode (finally lol).
+
+  - Started getting my hands on Neetcode 150, and since I was extremely rusty on it I started implementing the data structures from scratch in Java which really helped me.
+
+- 9/23/25: Saw a youtube video & there was some good advice in it: Try to be the best in one thing. Technical depth in one thing is better than being average in many things. This may not really apply to everything obviously, but it did give me some insight on how I should structure my studies. It was always natural of me to randomly drop a project to start learning the next interesting thing, which often led me to dabbling in pieces and bits of everything, leading me to be scattered all around the place and be a master of none. So basically, it gave me a sense that I should actually try to dive deep into one thing, and for me I decided that it would be Java/SpringBoot (at least for now). I realized that I still didn't really fully understand the mid-complex level stuff in Java, such as generics, method references, and even concepts like JVM or garbage collection. Like, I technically only knew what they were but I couldn't go beyond - I realized that my mind becomes foggy when I try to go a lil bit deeper than the surface level knowledge.
+- 9/24/25: I read a blog post about a student grinding for interviews, and here was something that somehow didn't really strike me before-> **Aim to master the fundamentals -> once you have the fundamentals you will be able to tackle any problem**. I think this is important to remember as a CS student and an engineer.
+
+  - So I had just started grinding leetcode (at least 1 question per day), and I had thought I just needed to repeat everyday + memorize the patterns until they were natural to me. But I hadn't really thought deep about "thinking like an engineer". I feel like in a sense it's a much deeper thing than just memorizing patterns, but more like rewiring your brain fundamentally.
+  - Also, the last thing you wanna struggle is the syntax during a coding interview, so I had to get real comfortable with a language. I initially chose Python, but I wanted to learn Java really deeply, so I just chose Java instead.
+
+- For the first time ever, I felt like I was getting more comfortable with coding and software engineering in general. It was like... I had leveled up, but I can't really explain how lol.
+- I also started getting in touch with my hobbies and diving into topics that I was interested in (productivity, economics, art, etc). And unsurprisingly, life now feels much more enegertic and interesting. It's like I learned how to think widely and be more flexible.
+
+  - So it feels like I got to be in touch with my younger self. I used to deep dive into random topics, read lots of books ranging from autobiographies to fiction, learn psychology, etc. I kinda lost the spark as I got older as I entered cc & being a CS major lol. Now life is much more interesting and fun again - when I go back to UW too, I'm planning to do lots of interesting things and go outside my comfort zone (Makers fair, join clubs, more activities..)
+  - Also, I stopped blaming. I used to blame myself a lot for not making use of the first 2 years at my community college. And it was true that I didn't really know anything; I didn't know React or Node or any popular frameworks/tools. I didn't even know that I had to leetcode lol. All my energy and attention was spent on where I should transfer, so I was busy writing applications, taking science classes, juggling with a part-time job instead of going deep into CS. So by the time I got in Paul G. Allen School, I pretty felt much like an imposter. But now.. lots of time had passed, and I've gotten to know myself better. I stopped blaming. I kinda just learned to focus my energy into the present, and blaming myself, the past, or my past environment will not solve anything - it just wates your energy. When I let go of it, I felt much better.
+
+## October
+
+- Thinking of brain fog...
+- Dr K's live stream vids
+- Reconnected with an my past roomie
+- Preparing for the job hunt again..
+
+  - Burger King IT team (AWS)
+  - AI SWE intern at Nota
+
+### Revamped my blog
+
+## November
+
+- AWS Community Day (Korea)
+
+## Some extras this year!
+
+1.  I've learned about the term _IKEA Effect_ and _Homo faber_
+
+    - I want to dive deep into these topics in a longer post in the future, but essentially I've adapted this mindset of creating the things I want to use. This leads to:
+
+2.  I started to use NotebookLM to create my own custom podcasts (lol).
+
+Actually very interesting how it can get super customized. Once I fed in stuff about my project studysnap and ask for potential improvements and such, and it gave me so much personalized feedback that I've started to use it more and more.
+
+### Games... lots of them... :')
+
+I haven't really realized, but maybe... I'm a gamer? lol
+
+- Slay the Spire
+- Muck
+- In Stars and Time
+- overwatch
+- silksong
+- monster hunter world
+- Peak
+- PUBG
+
+### Obsidian build setup + Anki (study methods)
+
+- screenshot
+
+### Creating
+
+- Made a photo album book in goodnotes
+- Moodboards
+- Stickers
+- Art study
+
+### Books
+
+- pureref? goodreads? screenshot?
+
+### Started writing more
+
+- [my korean tech blog](https://leejunkim.tistory.com/)
+
+  - (n posts) + screenshot
+  - This blog was mainly to impress korean recruiters so i could get an internship (lol), but also to refine what I learned during the internship
+  - but it was more fun than I expected, maybe i will continue working on it, but i think rn i will kind of work on translating the most important/useful posts into english and repost them here (or somewhere else)
+
+- more and more updates on [obsidian](https://lkim0402.github.io/obsidian-vault-main/) (tech notes mostly, on java spring to AI)
+
+  - ~n more notes
+
+- obviously this blog, which mainly focuses on long form essays/reflections
+
+  - ~n more blog posts
+
+## potential projects I'm thinking
+
+- A dashboard for very personalized data, as in like a software to download on ur pc and monitor, that you can keep track of personal stuff
+- I had this idea of a rpg-maker style game (thriller/psychological) set in england, following a girl named Lorelei who keep encountering supernatural events (I even have a spotify playlist for this). Not sure when I can continue this tho, but I'm definitely planning to, in the future.... someday...
+- A music visualizer, made in unity (some [inspo](https://www.youtube.com/watch?v=710hs7tYViI)), with a deep dive into the shapes library
+- Some potential procedural land generation + AI agent connected in unity, a sandbox/experimentation where you let the AI free & let it learn (reference: the huggingface AI module)
+- AI agent connected to minecraft experiments xD
+
+  - I want to test what it can do and see if they can actually understand stuff, but probably will be limited because of API keys
+
+- Tailwind CSS visualization (for learning purposes, its also for myself who keep having to go back to the same docs page lol)
+- Media Tracker: a software that you can use to track all the books/movie/drama/podcasts/anime/webtoon that you consumed. Basically like your own personal library, but for all genres
+
+  - A movitation; I've always been a consumer of different stories on different mediums and I wanted a centralized app that can track everything. I'm thinking it won't be too difficult.. maybe I can use Flutter for this? or make it into a web app?
+
+# Ending thoughts
+
+- Lots of things happened.
+
+  - My long-time friend got married, and my younger brother became old enough to go to the military & so he left our family. Many of my friends graduated from UW, some getting jobs and some returning back to their home countries, or they were almost nearing graduation. It was like I was the only one not moving forward and being stuck at the same place. If I hadn't taken a gap year then I would already have graduated.. which feels so strange because I feel wayyy too unprepared to face post-graduation world. It's probably because of my natural personality? tendency? to be over-worried.. but as time pass this too became better. It was because I began to feel much more confident in myself, thank god. It was the right choice for me that I'd taken a gap year, and I don't regret it a bit.
+  - My relationship with tech / coding in general got much better. I've gotten more comfortable, and it seems like I could see the world in a more clearer lens? if that makes sense.
+
+- I got more comfortable with myself, with my hobbies, my likes, my passion, etc.

@@ -1,5 +1,5 @@
 import { Post } from "../../types/post";
-import PostBox from "../../components/postLink";
+import PostBox from "../../components/post/PostLink";
 import PageTitle from "../../components/PageTitle";
 
 export const revalidate = 30; // Recheck every 30 seconds
