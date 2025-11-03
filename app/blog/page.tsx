@@ -52,10 +52,12 @@ export default async function Workshop() {
     const { data: frontMatter } = matter(fileContents);
     const date = new Date(frontMatter.date);
 
-    const formattedDate = formatDate(new Date(date));
+    const actualDate = new Date(date);
+    const formattedDate = formatDate(actualDate);
     return {
       slug, // e.g "2025/aws-ccp-cert"
       formattedDate,
+      actualDate,
       meta: frontMatter,
     };
   });
@@ -74,6 +76,11 @@ export default async function Workshop() {
             <ul className="">
               {blogs
                 .filter((blog) => blog.meta.Published)
+                .sort(
+                  (a, b) =>
+                    new Date(b.actualDate).valueOf() -
+                    new Date(a.actualDate).valueOf()
+                )
                 .map((blog) => (
                   <li key={blog.slug}>
                     <PostLink
