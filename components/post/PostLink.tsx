@@ -1,5 +1,5 @@
 // import Link from "next/link";
-import { PostLink as PostLinkStruct } from "../../types/post";
+import { PostLink as PostLinkStruct } from "../../types/BlogPost";
 // import React from "react";
 import Link from "next/link";
 

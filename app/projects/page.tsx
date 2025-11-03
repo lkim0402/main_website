@@ -2,7 +2,7 @@
 import PageTitle from "../../components/PageTitle";
 import Project from "../../components/projects/Project";
 import { projectData } from "@/data/projectData";
-import { ProjectType } from "../../types/Project_types";
+import { ProjectType } from "../../types/ProjectTypes";
 
 import { useState } from "react";
 

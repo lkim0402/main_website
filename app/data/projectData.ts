@@ -1,4 +1,4 @@
-import { ProjectType } from "../../types/Project_types";
+import { ProjectType } from "../../types/ProjectTypes";
 
 // src/projectsData.ts
 type Link = {

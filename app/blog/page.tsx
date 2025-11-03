@@ -4,6 +4,16 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+// getting, filtering (published), and ordering blog posts
+function getPostList(blogs) {
+  return blogs
+    .filter((blog) => blog.meta.Published)
+    .sort(
+      (a, b) =>
+        new Date(b.actualDate).valueOf() - new Date(a.actualDate).valueOf()
+    );
+}
+
 // formatting date
 function formatDate(date: Date) {
   const d = new Date(date);
@@ -62,6 +72,8 @@ export default async function Workshop() {
     };
   });
 
+  const processedBlogs = getPostList(blogs);
+
   return (
     <div>
       <PageTitle
@@ -74,22 +86,15 @@ export default async function Workshop() {
           <div>
             {/* This map will now work correctly */}
             <ul className="">
-              {blogs
-                .filter((blog) => blog.meta.Published)
-                .sort(
-                  (a, b) =>
-                    new Date(b.actualDate).valueOf() -
-                    new Date(a.actualDate).valueOf()
-                )
-                .map((blog) => (
-                  <li key={blog.slug}>
-                    <PostLink
-                      path={blog.slug}
-                      date={blog.formattedDate}
-                      title={blog.meta.title}
-                    ></PostLink>
-                  </li>
-                ))}
+              {processedBlogs.map((blog) => (
+                <li key={blog.slug}>
+                  <PostLink
+                    path={blog.slug}
+                    date={blog.formattedDate}
+                    title={blog.meta.title}
+                  ></PostLink>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

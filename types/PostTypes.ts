@@ -1,4 +1,4 @@
-export enum ProjectType {
+export enum PostType {
   AWS = "AWS",
   Reading = "Reading",
   Devlog = "Devlog",

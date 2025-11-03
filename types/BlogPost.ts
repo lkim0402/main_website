@@ -5,7 +5,6 @@ export interface PostLink {
 }
 
 export interface Post {
-  // _id: string;
   path: string;
   title: string;
   content: string;
@@ -13,7 +12,6 @@ export interface Post {
   category: string;
   date: string;
   updated_date?: string;
-  cover_image?: string;
   tags?: Tag[];
   status: string;
 }
@@ -22,3 +20,11 @@ type Tag = {
   _id: string;
   tag: string;
 };
+
+// ====== metadata for blog posts
+export interface BlogMeta {
+  title: string;
+  date: string;
+  tags: string[];
+  Published: boolean;
+}
