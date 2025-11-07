@@ -21,14 +21,6 @@ Admin 페이지
 백엔드
 - 깃허브: https://github.com/lkim0402/blog-backend
 
-# 스크린샷
-[2025년 9월 기준 스크린샷]
-
-<img width="1610" height="826" alt="image" src="https://github.com/user-attachments/assets/06a7f52f-91fa-482d-813a-558eaccc2cee" />
-<img width="1669" height="821" alt="image" src="https://github.com/user-attachments/assets/35f94325-04e5-4624-9afd-83bdef7ec473" />
-<img width="1650" height="798" alt="image" src="https://github.com/user-attachments/assets/2d4bdb3b-89f3-4547-95c5-906b8f1e38f3" />
-<img width="1652" height="703" alt="image" src="https://github.com/user-attachments/assets/baeff5ce-9ac6-4eca-a420-ff1e13ae02ed" />
-
 # 기술 스택
 <div align="left">
 <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js"/>
