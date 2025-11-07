@@ -78,6 +78,8 @@ export default async function Workshop() {
     const slug = relativePath.replace(/\\/g, "/").replace(".mdx", "");
 
     const fileContents = fs.readFileSync(fullPath, "utf8");
+    // object destructuring + rename, using matter() from graymatter
+    // returns data (metadata) and content (actual mdx content)
     const { data: frontMatter } = matter(fileContents);
     const date = new Date(frontMatter.date);
 
@@ -87,6 +89,7 @@ export default async function Workshop() {
       slug, // e.g "2025/aws-ccp-cert"
       formattedDate,
       actualDate,
+      // key(object name): meta, value: frontMatter
       meta: frontMatter as FrontMatter,
     };
   });
