@@ -104,6 +104,16 @@ div[data-youtube-video] {
 }
 
 .postContent {
+  a {
+    color: rgb(29, 47, 146);
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline blue dotted;
+  }
+  a:hover {
+    color: rgb(96, 116, 231);
+  }
+
   img {
     margin-top: 0.9rem !important;
     margin-bottom: 0.9rem !important;
