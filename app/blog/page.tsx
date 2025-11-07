@@ -4,14 +4,33 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+// processed blog object
+type BlogEntry = {
+  slug: string;
+  formattedDate: string;
+  actualDate: Date;
+  meta: FrontMatter; // object
+};
+type FrontMatter = {
+  title: string;
+  date: string | Date;
+  Tags: string[];
+  Published: boolean;
+  [key: string]: unknown;
+};
+
 // getting, filtering (published), and ordering blog posts
-function getPostList(blogs) {
-  return blogs
-    .filter((blog) => blog.meta.Published)
-    .sort(
-      (a, b) =>
-        new Date(b.actualDate).valueOf() - new Date(a.actualDate).valueOf()
-    );
+function getPostList(blogs: BlogEntry[]) {
+  return (
+    blogs
+      // only published
+      .filter((blog) => blog.meta.Published)
+      // sorting
+      .sort(
+        (a, b) =>
+          new Date(b.actualDate).valueOf() - new Date(a.actualDate).valueOf()
+      )
+  );
 }
 
 // formatting date
@@ -68,7 +87,7 @@ export default async function Workshop() {
       slug, // e.g "2025/aws-ccp-cert"
       formattedDate,
       actualDate,
-      meta: frontMatter,
+      meta: frontMatter as FrontMatter,
     };
   });
 
