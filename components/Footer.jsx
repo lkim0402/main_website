@@ -1,8 +1,8 @@
 export function Footer() {
   return (
-    <div className="mb-12 mt-25 mx-10">
+    <div className="mb-12 mt-25 mx-10 microsoftFont">
       <p className="text-center mb-2 text-wrap text-gray-700 dark:text-[#E5E4FF] ">
-        Built with Next.js, Tailwind CSS, MongoDB.
+        Built with React, NextJS, Tailwind CSS, MDX.
       </p>
       <p className="text-center mb-2 text-sm text-gray-500 dark:text-indigo-300">
         Copyright © {new Date().getFullYear()} LeejunKim
