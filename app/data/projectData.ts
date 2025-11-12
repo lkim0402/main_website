@@ -21,7 +21,7 @@ export const projectData: ProjectStruct[] = [
   {
     src: "/project/monew.gif",
     title: "MoNew",
-    date: "August 2025",
+    date: "Aug 2025",
     type: [ProjectType.Software],
 
     links: [
@@ -68,6 +68,25 @@ export const projectData: ProjectStruct[] = [
     skills: "Unity (C#), Procreate / Clip Studio Paint",
     explanation: [
       "Developed a dialogue-driven visual novel where you play as a sentient crown choosing a kingdom’s ruler based on persuasive arguments; leads to 3 different endings & routes. Implemented an event-driven system and the core game mechanics. Made in ~two weeks for the Pirate Game Jam 2025 with a team of 3.",
+    ],
+  },
+
+  // ImpactEdu
+  {
+    src: "/project/ImpactEdu.gif",
+    title: "ImpactEducation Website",
+    date: "Nov 2025",
+    type: [ProjectType.Web],
+
+    links: [
+      {
+        name: "Webpage",
+        url: "https://www.impactedu.org/en",
+      },
+    ],
+    skills: "React, Tailwind(CSS), NextJS",
+    explanation: [
+      "Built the main user-facing pages for ImpactEducation with React and Tailwind CSS. Added English–Korean language support through a localization library and ensured consistent, responsive design across platforms.",
     ],
   },
 
