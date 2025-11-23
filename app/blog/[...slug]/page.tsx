@@ -4,11 +4,13 @@ import path from "path";
 import matter from "gray-matter";
 import rehypeHighlight from "rehype-highlight";
 import "/styles/highlight-js/tokyo-night-dark.css";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const options = {
   mdxOptions: {
-    remarkPlugins: [],
-    rehypePlugins: [rehypeHighlight],
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeHighlight, rehypeKatex],
   },
 };
 

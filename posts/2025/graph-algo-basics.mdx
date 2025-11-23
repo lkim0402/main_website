@@ -1,0 +1,173 @@
+---
+title: "Graph basics review, DFS/BFS"
+date: "2025-11-21"
+Tags: [DSA]
+Published: False
+---
+
+\*Disclaimer: This post was written as a review for everything graph related for future me and students that need a brush up :)
+
+# Graph
+
+A graph is a collection of nodes (e.g. vertices) and edges that connect these nodes.
+
+- **Nodes/Vertices**: Individual points
+- **Edges**: Relationships between the nodes
+
+# Types of graphs
+
+Graphs can be _directed or undirected_, _weighted or unweighted_, and _cyclic or acyclic_.
+We'll explore all three categories.
+
+## Directed or undirected graphs
+
+- **Directed graphs (digraph)**: Edges have a specified direction
+  - Indicates a one-way relationship between the nodes
+  - Often represented by arrows on the edges, indicating the direction
+  - If there is an edge from node A to B in a digraph, it does NOT imply the existence of an edge from B to A
+    (but both can exist concurrently if there are edges pointing to both directions)
+- **Undirected graphs**: Edges do not have a specified direction
+  - Edges have no direction, and they represent a two-way relationship between vertices
+
+## Weighted or unweighted
+
+- **Weighted graphs**: Edges have numerical values (weights)
+  - The weights represent the cost or distance between the nodes
+- **Unweighted graphs**: Edges do not have numerical values
+
+## Cyclic or acyclic
+
+- **Cyclic graphs**: Contains at least one cycle or closed loop
+- **Acyclic graphs**: Do not contain cycles or closed loops
+
+*A tree is a specific type of graph that is *connected* and has *no cycles\*.
+
+# Graph representations
+
+Two primary representations are adjacenty matrices and adjacency lists.
+
+## Adjacency matrices
+
+A matrix depicts the connections between nodes.
+
+- If there is an edge between nodes `i` and `j`, the matrix entry at position `(i,j)` will be 1; otherwise 0.
+- This representation is enough for dense graphs but can be space-inefficient for sparse graphs.
+
+## Adjacenty lists
+
+Each node maintains a list of its neighboring nodes.
+
+- More space efficient than adjacency matrices, especially for sparse graphs
+- But it may take longer to determine if there is an edge between two specific nodes
+
+# Common Graph algorithms
+
+Common algorithms include:
+
+- Breadth-First Search (BFS)
+- Depth-First Search (DFS)
+- Dijkstra's algorithm
+- Bellman-Ford algorithm
+
+## Breadth-First Search (BFS)
+
+BFS explores a graph **level by level**, visiting all the neighbors of a node before moving on to the next level.
+
+- It starts at the tree root (or some arbitrary graph node) and explores the neighbor nodes
+  at the present depth before moving to nodes at the next depth level.
+- It's often used to find the shortest path in unweighted graphs.
+- We use the queue data structure for this.
+  - The queue is used to keep track of the unexplored vertices. (The algorithm
+    dequeues a vertex, explores its neighbors, and enqueues them)
+- We mark the visited nodes.
+  - Each vertex is marked as visited once dequeued to prevent already
+    explored vertices.
+
+### Steps (pseudocode)
+
+1. Enqueue the root node (initial start node) into a queue
+2. Mark the initial node as visited
+3. While the queue is not empty:
+   - Dequeue a node from the queue
+   - Process the node (desired operaton)
+   - Enqueue all unvisited neighbors of the dequeued node (same depth)
+   - Mark the dequeued node as visited
+
+### Java code
+
+First, since graphs can have cycles, we have to mark a node as `visited`.
+
+```java
+class GraphNode {
+    int value;
+    // list of connections
+    List<GraphNode> neighbors;
+
+    public GraphNode(int value) {
+        this.value = value;
+        this.neighbors = new ArrayList<>();
+    }
+}
+```
+
+```java
+public void BFS(GraphNode start) {
+    if (start == null) return;
+
+    Queue<GraphNode> queue = new LinkedList<>();
+    Set<GraphNode> visited = new HashSet<>(); // O(1) time
+
+    queue.add(start);
+    visited.add(start);
+
+    while (!queue.isEmpty()) {
+        GraphNode current = queue.remove();
+
+        // iterate through all neighbors
+        for (GraphNode neighbor : current.neighbors) {
+            // only add to queue if we haven't seen it before
+            if (!visited.contains(neighbor)) {
+                visited.add(neighbor); // mark visited now
+                queue.add(neighbor);
+            }
+        }
+    }
+}
+```
+
+Note: When you're running a BFS in a tree (BST), you don't need a `visited`
+check since the flow is always one way from parent to child.
+
+- In a BST, the node will just have `left` and `right` instead of a list of neighbors.
+- Once you move from parent to child, there is no path that leads
+  back up to the parent, so you can't encounter the same node twice. (I'll dive deeper in another post)
+
+## Depth-First Search (DFS)
+
+DFS explores a graph by **going as deep as possible** along each branch before backtracking.
+
+- It's used for cycle detection, topological sorting, etc.
+
+### Steps (pseudocode)
+
+### Java code
+
+```java
+
+```
+
+## Dijkstra's algorithm
+
+Dijkstra's algorithm finds the shortest path in weighted graphs.
+
+- It helps with network optimization problems
+
+## Bellman-Ford algorithm
+
+- Like Dijkstra's algorithm, it finds the shortest path in weighted graphs
+- But it also can handle graphs with negative edge weights
+
+## BFS vs DFS
+
+![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*miG6xdyYzdvrB67S.gif)
+source: https://medium.com/@kenny.hom27/breadth-first-vs-depth-first-tree-traversal-in-javascript-48df2ebfc6d1
