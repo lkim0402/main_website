@@ -1,11 +1,11 @@
 interface pageTitleFormat {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export default function PageTitle({ title, description }: pageTitleFormat) {
   return (
-    <div className="mb-8 text-center sm:text-justify ">
+    <div className="mb-5 text-center sm:text-justify ">
       <div
         className="text-3xl pb-2 font-bold 
       text-indigo-400
@@ -15,7 +15,7 @@ export default function PageTitle({ title, description }: pageTitleFormat) {
       >
         {title}
       </div>
-      <p className=" dark:text-indigo-100">{description}</p>
+      {description && <p className=" dark:text-indigo-100">{description}</p>}
     </div>
   );
 }
