@@ -1,36 +1,36 @@
-import PostLink from "../../components/post/PostLink"; // Assuming you'll use this later
+import PostLink from "../../components/post/PostLink";
 import PageTitle from "../../components/PageTitle";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import Subtitle from "components/SubTitle";
+import Link from "next/link";
 
 // processed blog object
 type BlogEntry = {
   slug: string;
   formattedDate: string;
   actualDate: Date;
-  meta: FrontMatter; // object
+  meta: FrontMatter;
 };
+
 type FrontMatter = {
   title: string;
   date: string | Date;
   Tags: string[];
+  Category: string;
   Published: boolean;
   [key: string]: unknown;
 };
 
 // getting, filtering (published), and ordering blog posts
 function getPostList(blogs: BlogEntry[]) {
-  return (
-    blogs
-      // only published
-      .filter((blog) => blog.meta.Published)
-      // sorting
-      .sort(
-        (a, b) =>
-          new Date(b.actualDate).valueOf() - new Date(a.actualDate).valueOf()
-      )
-  );
+  return blogs
+    .filter((blog) => blog.meta.Published)
+    .sort(
+      (a, b) =>
+        new Date(b.actualDate).valueOf() - new Date(a.actualDate).valueOf()
+    );
 }
 
 // formatting date
@@ -54,10 +54,10 @@ const getPostFiles = (dir: string): string[] => {
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      // If it's a directory, dive deeper
+      // directory -> dive deeper
       files = files.concat(getPostFiles(fullPath));
     } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
-      // If it's an .mdx file, add its full path
+      // .mdx file -> add its full path
       files.push(fullPath);
     }
   }
@@ -96,19 +96,51 @@ export default async function Workshop() {
 
   const processedBlogs = getPostList(blogs);
 
+  // for recent posts
+  const recentBlogs = processedBlogs.slice(0, 10);
+
+  // for year
+  const postCounts = processedBlogs.reduce((acc, blog) => {
+    const year = blog.actualDate.getFullYear().toString();
+    acc[year] = (acc[year] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const yearList = Object.keys(postCounts).sort(
+    (a, b) => Number(b) - Number(a)
+  );
+
+  // for category
+  const slugify = (text: string) => {
+    return text
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w\-]+/g, "")
+      .replace(/\-\-+/g, "-");
+  };
+  const categoryCounts = processedBlogs.reduce((acc, blog) => {
+    const category = blog.meta.Category;
+    acc[category] = (acc[category] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const categoryList = Object.keys(categoryCounts).sort();
+
   return (
     <div>
       <PageTitle
         title="Blogging"
-        description="Posts/writings about projects, devlogs, certifications, notes, etc."
+        description="Posts about programming, reflections, and almost anything that's on my mind"
       />
+      <Subtitle title="Most Recent" />
       <div>
         <div className="flex flex-col justify-center">
           <div className="flex flex-row "></div>
           <div>
-            {/* This map will now work correctly */}
             <ul className="">
-              {processedBlogs.map((blog) => (
+              {recentBlogs.map((blog) => (
                 <li key={blog.slug}>
                   <PostLink
                     path={blog.slug}
@@ -120,6 +152,49 @@ export default async function Workshop() {
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* Category */}
+      <div className="mt-6">
+        <Subtitle title="By Category" />
+        <ul className="list-disc pl-3">
+          {categoryList.map((category) => (
+            <li key={category}>
+              <div
+                className="text-gray-800 dark:text-gray-100
+                transition duration-300 ease-in-out hover:scale-101
+                origin-left
+                font-normal underline decoration-dotted"
+              >
+                <Link href={"/blog/category/" + slugify(category) + "/"}>
+                  {" "}
+                  {category} ({categoryCounts[category]})
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Year */}
+      <div className="mt-6">
+        <Subtitle title="By Year" />
+        <ul className="list-disc pl-3">
+          {yearList.map((year) => (
+            <li key={year}>
+              <div
+                className="text-gray-800 dark:text-gray-100
+                transition duration-300 ease-in-out hover:scale-101
+                origin-left
+                font-normal underline decoration-dotted"
+              >
+                <Link href={"/blog/archive/" + year + "/"}>
+                  {year} ({postCounts[year]}){" "}
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
