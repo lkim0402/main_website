@@ -17,6 +17,25 @@ export type ProjectStruct = {
 };
 
 export const projectData: ProjectStruct[] = [
+  // Mopl
+  {
+    src: "/project/mopl.gif",
+    title: "Mopl",
+    date: "Dec 2025",
+    type: [ProjectType.Software],
+    links: [
+      {
+        name: "Github",
+        url: "https://github.com/sb04-mopl-team2/sb04-mopl-team2",
+      },
+    ],
+    skills:
+      "Spring Boot/Java, PostgreSQL, AWS (RDS,S3,ECR/ECS, OpenSearch), Kafka, Redis, GitHub Actions, Docker",
+    explanation: [
+      "Led development of a content curation platform for media and playlists within a 6-person team. Built real-time chat with WebSocket/STOMP and resolved distributed session issues using Redis Pub/Sub; Boosted performance by migrating watcher count updates to Redis, significantly reducing DB load.",
+      "Improved search response times by 15% through refactoring QueryDSL to OpenSearch and JMeter testing.",
+    ],
+  },
   // MoNew
   {
     src: "/project/monew.gif",
@@ -34,6 +53,26 @@ export const projectData: ProjectStruct[] = [
       "Spring Boot (Java), PostgreSQL, MongoDB, Docker, AWS (S3, RDS, ECS/ECR), Github Actions",
     explanation: [
       "Built an AWS news community platform with a team of 6. Implemented async user tracking (Spring Events, MongoTemplate) and a read-only MongoDB model. Automated nightly S3 backups with Spring Batch. Engineered a CI/CD pipeline (GitHub Actions, Docker, ECS), reducing deployment time by 95%. Provisioned supporting AWS infrastructure (IAM, RDS, S3).",
+    ],
+  },
+
+  // sonocraftar
+  {
+    src: "/project/sonocraftar.gif",
+    title: "SonocraftAR",
+    date: "Aug 2025",
+    type: [ProjectType.Research],
+
+    links: [
+      {
+        name: "arxiv paper",
+        url: "https://arxiv.org/abs/2508.17597",
+      },
+    ],
+    skills: "Unity/C#, GPT API, Prompt Engineering, HoloLens2, Python",
+    explanation: [
+      "Developed SonoCraftAR, an AR HoloLens system that enables DHH users to author personalized shape-based visualizations. Implemented real-time audio processing and script generation/compilation in Unity/C#, GPT API (4o); Designed a multi-agent AI pipeline, delegating specific tasks (e.g., prompt enhancement, code generation, code checker).",
+      "Co-authored and published a workshop paper at ISMAR IDEATExR 2025.",
     ],
   },
 

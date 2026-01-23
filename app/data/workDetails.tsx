@@ -14,8 +14,8 @@ export const WorkDetails: sectionDetails[] = [
           author personalized shape-based visualizations. Implemented real-time
           audio processing and script generation/compilation in Unity/C#, GPT
           API (4o), and Rosyln compiler; Designed a multi-agent AI pipeline,
-          delegating specific tasks (e.g., audio transcription, shape
-          generation) to specialized prompts with the GPT API, improving
+          delegating specific tasks (e.g., Prompt enhancement, Code generation,
+          Code checker) to specialized prompts with the GPT API, improving
           modularity.
         </>,
         <>
