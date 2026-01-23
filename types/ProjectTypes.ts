@@ -4,5 +4,6 @@ export enum ProjectType {
   Software = "Software",
   Game = "Game",
   Web = "Web",
+  Research = "Research",
   //   Course = "Course",
 }
