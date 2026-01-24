@@ -73,3 +73,13 @@ class Solution {
     }
 }
 ```
+
+# time complexity
+
+- 1st phase (finding intersection)
+  - slow pointer - slow pointer travels a distance strictly less than `N`, so the while loop runs fewer than `N` times
+  - time complexity is `O(N)`
+- 2nd phase (decreasing `p` and `x`, moving both slow pointers)
+  - both pointers move 1 at a time, travel exactly distance `p`.
+  - `p < N`, time complexity is also `O(N)`
+- Total: `O(N) + O(N) = O(N)`
