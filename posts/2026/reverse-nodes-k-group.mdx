@@ -53,6 +53,10 @@ public class Solution {
 - In the reversing while loop
   - `head` -> the next node we want to reverse
   - `cur` -> the "end node" that we will connect `head.next`
+- The `head = cur` after the while loop
+  - in the end, `ListNode tmp = head.next` will be the last element (the very first initial `cur` that we got from recursion)
+  - and `cur` will be at the beginning
+  - so we set `head = cur` to return the head for next iteration (from the recursion).. or we can also just simple return `cur`
 
 # Time complexity
 
