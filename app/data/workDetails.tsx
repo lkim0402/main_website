@@ -42,7 +42,7 @@ export const WorkDetails: sectionDetails[] = [
     org: "ArtygenSpace",
     orgLink: "https://www.artygenspace.com/artygenspace-eng-version",
     date: "Aug 2024 - Dec 2024",
-    position: ["AI/Software Engineer Intern"],
+    position: ["Software Engineer Intern"],
     skills: [
       [
         "Python",
