@@ -1,15 +1,16 @@
 ---
-title: "Tree basics review, DFS/BFS"
+title: "Review - Trees, BSTs, DFS/BFS"
 date: "2025-11-21"
 Tags: [DSA]
 Category: "Data Structures and Algorithms"
 Published: True
 ---
 
-# Terminology
+# Terminology - Trees
 
 - **Trees**
   - A data structure with a root node and children
+  - It is a **specfic type of graphs** (all trees are graphs).
   - A node can have any number of children (0 to `N`),
     but every node can have only one parent!
     - This is what separates a tree from a graph: if a node has 2 parents, it is no
@@ -17,16 +18,38 @@ Published: True
   - There is no strictly required ordering of data
   - An example: A linkedlist is a tree that doesn't fork
 - **Binary Tree**
-  - A specific type of tree that can have **at most 2 children (`left` and `right`)**
-  - There is still no required ordering of the values
+  - A specific type of tree that can follows the **binary tree rule**: **at most 2 children (`left` and `right`)**
+  - There is still no required ordering of the values.
+    - So if you were to search for some node, it would be `O(n)`.
+
+# Different tree types
+
+Various ways of organizing data within a tree structure:
+
+<br/>
 - **Binary Search Tree (BST)**
   - A specific type of binary tree
-  - Must satisfy the binary tree rule (max 2 children) AND a specific sorting rule
-  - _The BST property_
-    - Everything in the left subtree is smaller than the parent
-    - Everything in the right subtree is larger than the parent
-  - Purpose is for fast searching - Because of the sorting, you can cut the search space in half
-    every step (binary search)
+  - Rule
+    - Must satisfy the binary tree rule (max 2 children) AND The BST property
+    - _The BST property_
+      - Everything in the left subtree is smaller than the parent
+      - Everything in the right subtree is larger than the parent
+      - `Left < Parent < Right`
+  - Purpose: For fast searching
+    - Because of the sorting, you can cut the search space in half
+      every step (binary search) -> `O(log n)`.
+    - But this only works if the tree is *balanced*. Imagine a linkedlist tree... then it's `O(n)`
+- **The Heap (Binary Heap)**
+  - A specific type of binary tree & always a complete tree (balanced)
+  - Rule
+    - The parent is always greater than (Max-Heap) or smaller than (Min-Heap) its children.
+    - There is no relationship between the left and right children.
+  - Purpose: Find min/max
+    - Gives fast access to the extreme element (max or min), `O(1)`
+- **Trie (Prefix Tree)**
+- **B-Tree / B+ Tree**
+- **AVL / Red-Black Trees**  
+  - Self balancing BSTs
 
 ## Types of binary trees
 
@@ -43,7 +66,6 @@ Published: True
 ```
 
 - **Perfect Binary Tree**
-
   - All internal nodes have 2 children, and all leaf nodes are at the exact same level.
     (The triangle is perfectly filled)
 
@@ -141,44 +163,65 @@ Height (h) = 2
     - The search speed is _very slow_ because we can't cut the search
       space in half but have to search through every node.
 
-# Algorithms
+# Array representation
+
+```none
+     1
+   /   \
+  2     3
+ /     /
+4     6
+
+[_,1,2,3,4,_,6]
+```
+
+- You can represent binary trees as an array.
+- Given some index `i`:
+  - left child: `2i`
+  - right child: `2i + 1`
+
+# Algorithms (+ Code)
+
+```Python
+# Binary Tree
+class TreeNode:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+    def __str__(self):
+        return str(self.val)
+```
 
 ## BFS
 
-```java
-class Node {
-    int value;
-    Node left;
-    Node right;
+- Also called level order traversal
+- Implemented with a queue
 
-    Node(int value) {
-        this.value = value;
-    }
-}
+```Python
+from collections import deque
+
+def bfs(node):
+  if not root:
+    return
+  q = deque([node])
+  result = []
+
+  while q:
+    cur = q.popleft()
+    result.append(cur)
+    if cur.left:
+      q.append(cur.left)
+    if cur.right:
+      q.append(cur.right)
 ```
 
-```java
-public ArrayList<Integer> BFS() {
-    Node cur = root;
-    Queue<Node> queue = new LinkedList<>();
-    ArrayList<Integer> results = new ArrayList<>();
-
-    // if tree is empty, return empty list
-    if (cur == null) return results;
-
-    queue.add(cur);
-
-    while (!queue.isEmpty()) {
-        Node curNode = queue.remove();
-        results.add(curNode.value);
-        if (curNode.left != null) queue.add(curNode.left);
-        if (curNode.right != null) queue.add(curNode.right);
-    }
-    return results;
-}
-```
+- You initialize the stack with the 1st node
 
 ## DFS
+
+- Usually implemented using a stack (or just recursion)
 
 ### Three different ways in doing DFS
 
@@ -191,21 +234,14 @@ storing the results in a `results` arraylist (in Java).
 
 - Root -> Left -> Right
 
-```java
-public ArrayList<Integer> DFSPreOrder() {
-    ArrayList<Integer> results = new ArrayList<>();
+```Python
+def pre_order(node):
+  if not node:
+    return
 
-    class Traverse {
-        Traverse(Node cur) {
-            results.add(cur.value); // here
-            if (cur.left != null) new Traverse(cur.left);
-            if (cur.right != null) new Traverse(cur.right);
-        }
-    }
-
-    new Traverse(root);
-    return results;
-}
+  print(node)
+  pre_order(node.left)
+  pre_order(node.right)
 ```
 
 #### InOrder
@@ -213,40 +249,30 @@ public ArrayList<Integer> DFSPreOrder() {
 - Left -> Root -> Right
 - Look at the name "inorder" -> the results will be in order!
 
-```java
-public ArrayList<Integer> DFSPreOrder() {
-    ArrayList<Integer> results = new ArrayList<>();
+```python
+def pre_order(node):
+  if not node:
+    return
 
-    class Traverse {
-        Traverse(Node cur) {
-            if (cur.left != null) new Traverse(cur.left);
-            results.add(cur.value); // here
-            if (cur.right != null) new Traverse(cur.right);
-        }
-    }
-
-    new Traverse(root);
-    return results;
-}
+  pre_order(node.left)
+  print(node)
+  pre_order(node.right)
 ```
 
 #### PostOrder
 
 - Left -> Right -> Root
 
-```java
-public ArrayList<Integer> DFSPreOrder() {
-    ArrayList<Integer> results = new ArrayList<>();
+```python
+def pre_order(node):
+  if not node:
+    return
 
-    class Traverse {
-        Traverse(Node cur) {
-            if (cur.left != null) new Traverse(cur.left);
-            if (cur.right != null) new Traverse(cur.right);
-            results.add(cur.value); // here
-        }
-    }
-
-    new Traverse(root);
-    return results;
-}
+  pre_order(node.left)
+  pre_order(node.right)
+  print(node)
 ```
+
+# Sources
+
+- [Greg Hogg (YT) - Binary Trees & Binary Search Trees - DSA Course in Python Lecture 8](https://www.youtube.com/watch?v=EPwWrs8OtfI)
