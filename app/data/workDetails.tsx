@@ -1,6 +1,21 @@
 import { sectionDetails } from "./types";
 
 export const WorkDetails: sectionDetails[] = [
+    {
+    org: "Finda",
+    // orgLink: "https://makeabilitylab.cs.washington.edu/",
+    date: "Feb 2026 - Present",
+    position: ["AI Intern"],
+    skills: [["Python, LangChain, OpenAI API (GPT-4o), SQL, n8n"]],
+    description: [
+      [
+        <>
+          Engineering AI workflows
+        </>
+      ],
+    ],
+    icon: "/resumeIcons/finda.png",
+    },
   {
     org: "Makeability Lab @ UW",
     orgLink: "https://makeabilitylab.cs.washington.edu/",
