@@ -35,12 +35,12 @@ export default function Resume() {
         <div className="mb-6">
           <div className="mb-4">
             {/* Role title */}
-            <p className="font-medium text-[1.45rem] dark:text-indigo-200">
+            <p className="text-[1.45rem] font-medium dark:text-indigo-200">
               AWS Certified Cloud Practitioner
             </p>
 
             {/* Company and Date (only show on first role) */}
-            <div className="text-gray-600 dark:text-gray-300 mb-1">
+            <div className="mb-1 text-gray-600 dark:text-gray-300">
               April 2025
             </div>
           </div>
@@ -49,12 +49,12 @@ export default function Resume() {
         <div className="mb-6">
           <div className="mb-4">
             {/* Role title */}
-            <p className="font-medium text-[1.45rem] dark:text-indigo-200">
+            <p className="text-[1.45rem] font-medium dark:text-indigo-200">
               TensorFlow Developer Certificate{" "}
             </p>
 
             {/* Company and Date (only show on first role) */}
-            <div className="text-gray-600 dark:text-gray-300 mb-1">
+            <div className="mb-1 text-gray-600 dark:text-gray-300">
               Sept 2023
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function Resume() {
 
       {/* Skills - using Collapsible */}
       <Collapsible title="Skills" defaultOpen>
-        <div className="flex flex-col space-y-6 mb-4">
+        <div className="mb-4 flex flex-col space-y-6">
           <div>
             <p className="text-lg font-semibold">Languages</p>
             {/* eslint-disable-next-line @next/next/no-img-element */}

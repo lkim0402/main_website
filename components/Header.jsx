@@ -5,28 +5,12 @@ import { X, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
-const headerElem = ["home", "resume", "projects", "blog", "mind💭"];
+const headerElem = ["home", "resume", "projects", "books", "blog", "mind💭"];
 
 export function Header() {
   const [curTheme, setCurTheme] = useState("light");
   const [showSidebar, setShowSidebar] = useState(false);
   const pathname = usePathname();
-
-  // useEffect(() => {
-  //   const theme = localStorage.getItem("theme");
-
-  //   // if theme is null, then make the default to light
-  //   if (theme === null) {
-  //     document.documentElement.classList.add("dark");
-  //     localStorage.setItem("theme", "dark");
-  //     setCurTheme("dark");
-  //   }
-  //   // If a theme is set in localStorage, use that
-  //   else if (theme === "light") {
-  //     document.documentElement.classList.remove("dark");
-  //     setCurTheme("light");
-  //   }
-  // }, []);
 
   const toggleTheme = () => {
     if (typeof window !== "undefined" && document) {
@@ -45,11 +29,11 @@ export function Header() {
   return (
     <header>
       {/* Sidebar for small screens */}
-      <div className="md:hidden flex justify-start ml-10 text-md MicrosoftFont">
+      <div className="text-md MicrosoftFont ml-10 flex justify-start md:hidden">
         {/* Menu Button */}
         <button
           onClick={() => setShowSidebar(!showSidebar)}
-          className="mr-10 my-3"
+          className="my-3 mr-10"
           aria-label="side menu button"
         >
           <Menu size={30} />
@@ -60,18 +44,13 @@ export function Header() {
             {showSidebar && (
               <div
                 onClick={() => setShowSidebar(false)} // click to close sidebar
-                className="fixed inset-0 bg-black/50 z-40"
+                className="fixed inset-0 z-40 bg-black/50"
               ></div>
             )}
             <div
-              className={`fixed inset-y-0 left-0 w-64 bg-white dark:bg-[#15182a] 
-                p-6 z-50 
-                
-                shadow-lg flex flex-col gap-4 
-                duration-300 ease-in-out 
-                ${showSidebar ? "translate-x-0" : "-translate-x-full"}`}
+              className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-4 bg-white p-6 shadow-lg duration-300 ease-in-out dark:bg-[#15182a] ${showSidebar ? "translate-x-0" : "-translate-x-full"}`}
             >
-              <div className="flex justify-between mb-5">
+              <div className="mb-5 flex justify-between">
                 <p className="font-bold">Menu</p>
                 <button
                   onClick={() => setShowSidebar(false)} // click to close sidebar
@@ -87,10 +66,10 @@ export function Header() {
                     el == "home"
                       ? "/"
                       : el == "mind💭"
-                      ? "https://leejun-obsidian-vault.vercel.app/"
-                      : `/${el}`
+                        ? "https://leejun-obsidian-vault.vercel.app/"
+                        : `/${el}`
                   }
-                  className={`hover:text-blue-600 dark:hover:text-blue-200 transition-all duration-300 transform hover:scale-105 ${
+                  className={`transform transition-all duration-300 hover:scale-105 hover:text-blue-600 dark:hover:text-blue-200 ${
                     el == "mind" && "underline"
                   }`}
                   title={el == "mind" ? "obsidian vault" : undefined}
@@ -102,13 +81,7 @@ export function Header() {
               ))}
               <button
                 onClick={toggleTheme}
-                className="relative
-                dark:outline-white
-                outline-offset-[-4px]
-                transition-all duration-200 ease-in-out rounded-full
-                hover:opacity-40 active:scale-95
-                hover:cursor-pointer
-                "
+                className="relative rounded-full outline-offset-[-4px] transition-all duration-200 ease-in-out hover:cursor-pointer hover:opacity-40 active:scale-95 dark:outline-white"
                 title="Toggle Theme"
               >
                 {curTheme == "light" ? (
@@ -140,7 +113,7 @@ export function Header() {
                     width="20"
                     height="20"
                     fill="currentColor"
-                    className="bi bi-moon w-7 h-7 px-1 py-1"
+                    className="bi bi-moon h-7 w-7 px-1 py-1"
                     viewBox="0 0 16 16"
                   >
                     <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
@@ -153,12 +126,12 @@ export function Header() {
       </div>
 
       {/* Top nav for medium and up */}
-      <nav className=" hidden md:block my-4 md:w-7/12 mx-auto  ">
+      <nav className="mx-auto my-4 hidden md:block md:w-7/12">
         <div className="flex justify-between">
-          <div className="pixelFont center relative top-2">
+          <div className="microsoftFont center relative top-2">
             <Link href="/">LEEJUN KIM</Link>
           </div>
-          <div className=" flex gap-4 ">
+          <div className="flex gap-4">
             {headerElem.map((el) => (
               <Link
                 key={el}
@@ -166,17 +139,17 @@ export function Header() {
                   el === "home"
                     ? "/"
                     : el === "mind💭"
-                    ? "https://leejun-obsidian-vault.vercel.app/"
-                    : `/${el.toLowerCase()}`
+                      ? "https://leejun-obsidian-vault.vercel.app/"
+                      : `/${el.toLowerCase()}`
                 }
                 className={clsx(
-                  "hover:text-indigo-600 dark:hover:text-indigo-200 transition-all duration-300 transform hover:scale-105 microsoftFont",
+                  "microsoftFont transform transition-all duration-300 hover:scale-105 hover:text-indigo-600 dark:hover:text-indigo-200",
                   {
                     "hover:underline": el === "mind",
-                    "dark:text-indigo-300 text-indigo-600":
+                    "text-indigo-600 dark:text-indigo-300":
                       pathname ===
                       (el === "home" ? "/" : `/${el.toLowerCase()}`),
-                  }
+                  },
                 )}
                 title={el === "mind💭" ? "obsidian vault" : undefined}
                 rel={el === "mind💭" ? "noopener noreferrer" : undefined}
@@ -185,15 +158,9 @@ export function Header() {
                 {el}
               </Link>
             ))}
-            {/* <button
+            <button
               onClick={toggleTheme}
-              className="relative
-            dark:outline-white
-            outline-offset-[-4px]
-            transition-all duration-200 ease-in-out rounded-full
-            hover:opacity-40 active:scale-95
-            hover:cursor-pointer
-            "
+              className="relative rounded-full outline-offset-[-4px] transition-all duration-200 ease-in-out hover:cursor-pointer hover:opacity-40 active:scale-95 dark:outline-white"
               title="Toggle Theme"
             >
               {curTheme == "light" ? (
@@ -225,13 +192,13 @@ export function Header() {
                   width="20"
                   height="20"
                   fill="currentColor"
-                  className="bi bi-moon w-7 h-7 px-1 py-1"
+                  className="bi bi-moon h-7 w-7 px-1 py-1"
                   viewBox="0 0 16 16"
                 >
                   <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
                 </svg>
               )}
-            </button> */}
+            </button>
           </div>
         </div>
       </nav>

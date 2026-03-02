@@ -25,7 +25,7 @@ export const projectData: ProjectStruct[] = [
     type: [ProjectType.Software],
     links: [
       {
-        name: "Github",
+        name: "github",
         url: "https://github.com/sb04-mopl-team2/sb04-mopl-team2",
       },
     ],
@@ -45,7 +45,7 @@ export const projectData: ProjectStruct[] = [
 
     links: [
       {
-        name: "Github",
+        name: "github",
         url: "https://github.com/sb04-team02/sb04-MoNew-team02",
       },
     ],
@@ -85,7 +85,7 @@ export const projectData: ProjectStruct[] = [
 
     links: [
       {
-        name: "Github",
+        name: "github",
         url: "https://github.com/Sprint-team-3/sb4-findex-team3",
       },
     ],
@@ -119,7 +119,7 @@ export const projectData: ProjectStruct[] = [
 
     links: [
       {
-        name: "Webpage",
+        name: "webpage",
         url: "https://www.impactedu.org/en",
       },
     ],
@@ -138,7 +138,7 @@ export const projectData: ProjectStruct[] = [
 
     links: [
       {
-        name: "Github",
+        name: "github",
         url: "https://github.com/lkim0402/BinGenius?tab=readme-ov-file",
       },
     ],

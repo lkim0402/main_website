@@ -13,29 +13,24 @@ export default function Project({
   explanation,
 }: ProjectStruct) {
   return (
-    <div
-      className="flex flex-col 
-      h-auto min-w-[290px] mx-4
-      align-center w-full 
-      "
-    >
+    <div className="mx-4 flex h-auto w-full min-w-[290px] flex-col items-center">
       <div className="">
         <Image
           src={src}
           alt={title}
           width={500}
           height={500}
-          className="object-cover h-[20rem] shadow-xl"
+          className="h-[20rem] rounded-xl object-cover shadow-xl"
         />
       </div>
 
       {/* Project details below the image/gif */}
-      <div className="space-y-2 px-2 mt-5">
-        <h2 className="text-2xl font-bold text-indigo-400 dark:text-indigo-200 microsoftFont">
+      <div className="mt-5 space-y-2 px-2">
+        <h2 className="microsoftFont text-2xl font-bold text-indigo-400 dark:text-[#f9faff]">
           {title}
         </h2>
-        <div className="flex flex-wrap gap-2 text-gray-800 dark:text-gray-300 microsoftFont">
-          <span className=" dark:text-white dark:opacity-70">{date}</span>
+        <div className="microsoftFont flex flex-wrap items-center gap-2 text-gray-800 dark:text-[#f0f1ff]">
+          {date}
           <span>|</span>
           <span>{type}</span>
           <span>|</span>
@@ -45,17 +40,14 @@ export default function Project({
                 <Link
                   key={index}
                   href={el.url}
-                  className="dark:text-gray-300
-                  text-indigo-500
-                   hover:text-indigo-700 dark:hover:text-indigo-200 
-                   hover:scale-105"
+                  className="hover: px-1 dark:bg-[#5959a9] dark:hover:bg-[#aea8d1]"
                 >
-                  [{el.name}]
+                  {el.name}
                 </Link>
               );
             })}
         </div>
-        <span className="microsoftFont text-gray-400 dark:text-gray-300">
+        <span className="microsoftFont text-gray-400 dark:text-[#e6e8fe]">
           {skills}
         </span>
         <div className="py-2">

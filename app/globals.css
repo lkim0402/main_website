@@ -7,21 +7,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @font-face {
-  font-family: "PixelFont";
-  src: url("/fonts/Minecraftia-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "MicrosoftFont";
   src: url("/fonts/MSW98UI-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
-/* body {
-  font-family: "MicrosoftFont";
-} */
+body {
+  /* font-family: "MicrosoftFont"; */
+}
 
 .pixelFont {
   font-family: "PixelFont";
@@ -73,13 +66,14 @@ div[data-youtube-video] {
   justify-content: center;
 }
 
-.textLink {
-  color: rgb(29, 47, 146);
-  font-weight: 500;
-  cursor: pointer;
-}
-.textLink:hover {
-  color: rgb(99, 100, 189);
+@layer components {
+  .linkButton {
+    @apply mt-1 cursor-pointer border-2 p-0.5 px-1 font-['MicrosoftFont'] font-medium text-[#1d2f92] hover:text-[#7182e6] dark:text-[#dcdfff] dark:hover:text-[#FFF8DE];
+  }
+
+  .highlight {
+    @apply text-[#c7d4f9];
+  }
 }
 
 .buttonLink {

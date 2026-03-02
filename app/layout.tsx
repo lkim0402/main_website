@@ -15,13 +15,12 @@ const dm_sans = DM_Sans({
 //   subsets: ["latin"],
 // });
 
-// import "highlight.js/styles/github.css";
 
 export const metadata: Metadata = {
   title: "leejunkim",
   description: "Personal notes",
   icons: {
-    icon: "/favicon1.png", // Or specify a PNG file like /favicon.png
+    icon: "/favicon1.png", 
   },
 };
 
@@ -46,8 +45,8 @@ export default function RootLayout({
       />
       <GoogleAnalytics gaId="G-VEJVKJLKK7" />
 
-      <body>
-        <div className=" pt-0.5 pb-0.5 bg-blue-100 mb-10">
+      <body className="bg-[#e4ecff] dark:bg-[#362F4F] dark:text-[#fffdf7]">
+        <div className=" pt-0.5 pb-0.5 mb-10">
           <Header />
         </div>
         <div className="mt-5 md:w-7/12 flex flex-col mx-auto text-md children">

@@ -5,27 +5,16 @@ import Link from "next/link";
 
 export default function PostLink({ path, title, date }: PostLinkStruct) {
   return (
-    <div className="flex flex-row items-center ">
+    <div className="flex flex-row items-center">
       {/* Date */}
-      <div
-        className="
-        basis-[6.5rem] shrink-0 grow-0
-         text-gray-600
-         microsoftFont
-         pt-[0.25rem]
-         "
-      >
+      <div className="microsoftFont shrink-0 grow-0 basis-[6.5rem] pt-[0.25rem] dark:text-[#bab1ec]">
         {date}
       </div>
 
       {/* Content */}
       <section className="">
         <Link href={`/blog/${path}`}>
-          <div
-            className="text-gray-800 dark:text-gray-100
-            transition-all duration-300 hover:scale-101
-            line-clamp-2 font-normal underline decoration-dotted"
-          >
+          <div className="line-clamp-2 font-normal text-gray-800 underline decoration-dotted transition-all duration-300 hover:scale-101 dark:text-gray-100">
             {title}
           </div>
         </Link>

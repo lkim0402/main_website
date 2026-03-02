@@ -7,22 +7,15 @@ export default function Collapsible({ title, children, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="mb-3 ">
+    <div className="mb-3">
       <div className="">
         <button
-          className="transition-all disabled:pointer-events-none cursor-pointer w-full flex 
-          items-center justify-between
-          
-          "
+          className="flex w-full cursor-pointer items-center justify-between transition-all disabled:pointer-events-none"
           onClick={() => setIsOpen(!isOpen)}
           type="button"
           title={`${isOpen ? "Click to close" : "Click to expand"}`}
         >
-          <div
-            className=" flex items-center w-full justify-between 
-            border-b-2 border-indigo-100 mb-8
-          "
-          >
+          <div className="mb-8 flex w-full items-center justify-between border-b-2 border-indigo-100 dark:border-[#d5d8fb]">
             <Section title={title} />
             {/* the triangle icon*/}
             <div
@@ -50,7 +43,7 @@ export default function Collapsible({ title, children, defaultOpen = false }) {
         </button>
       </div>
       <div
-        className={` overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? "h-auto opacity-100" : "h-0 opacity-0"
         }`}
       >
