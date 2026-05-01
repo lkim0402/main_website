@@ -145,14 +145,4 @@ export const projectData: ProjectStruct[] = [
       "Developed a CNN model for trash classification, fine-tuned on ~5000 images from HuggingFace with VGG16, deployed via a Flask web interface with HTML/CSS, achieving 75% accuracy and winning 3rd place in the EduHacks hackathon 2025 with a team of 4.",
     ],
   },
-  {
-    src: "/project/blog/1.png",
-    title: "Main Website",
-    date: "Mar 2025 - Present",
-    type: [ProjectType.Web],
-    skills: "React, Next.js, Tailwind CSS, MDX, TypeScript",
-    explanation: [
-      "building and maintaining my personal portfolio and blog",
-    ],
-  },
 ];

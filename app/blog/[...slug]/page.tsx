@@ -6,6 +6,7 @@ import rehypeHighlight from "rehype-highlight";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import BackButton from "components/BackButton";
+import ImageGrid from "components/ImageGrid";
 
 const options = {
   mdxOptions: {
@@ -13,6 +14,11 @@ const options = {
     rehypePlugins: [rehypeHighlight, rehypeKatex],
   },
 };
+
+const components = {
+  ImageGrid,
+};
+
 // helper function to get post path
 function getPost(slug: string[]) {
   const decodedSlug = slug.map((s) => decodeURIComponent(s));
@@ -91,7 +97,7 @@ export default async function Post({
       </div>
 
       <div className="postContent">
-        <MDXRemote source={content} options={options} />
+        <MDXRemote source={content} options={options} components={components} />
       </div>
     </article>
   );

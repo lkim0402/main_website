@@ -6,12 +6,17 @@ import rehypeHighlight from "rehype-highlight";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import BackButton from "../../../../components/BackButton";
+import ImageGrid from "../../../../components/ImageGrid";
 
 const options = {
   mdxOptions: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeHighlight, rehypeKatex],
   },
+};
+
+const components = {
+  ImageGrid,
 };
 
 const slugify = (text: string) => {
@@ -26,28 +31,25 @@ const slugify = (text: string) => {
 
 function getDevlogPost(projectSlug: string, postSlug: string[]) {
   const devlogDirectory = path.join(process.cwd(), "devlogs");
-  
+
   // Find the actual directory name that matches the projectSlug
-  const projectDirs = fs.readdirSync(devlogDirectory, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
-  
-  const actualDirName = projectDirs.find(dir => slugify(dir) === projectSlug);
-  
+  const projectDirs = fs
+    .readdirSync(devlogDirectory, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+  const actualDirName = projectDirs.find((dir) => slugify(dir) === projectSlug);
+
   if (!actualDirName) {
     throw new Error(`Project folder not found for slug: ${projectSlug}`);
   }
 
   // Decode post slug parts
-  const decodedPostSlug = postSlug.map(s => decodeURIComponent(s));
-  
+  const decodedPostSlug = postSlug.map((s) => decodeURIComponent(s));
+
   // The file should be at devlogs/[actualDirName]/[...decodedPostSlug].mdx
-  // Wait, if the user requested /devlog/main-website/main-website
-  // projectSlug = "main-website" -> actualDirName = "Main Website"
-  // postSlug = ["main-website"]
-  // But the file is "Main Website/main-website.mdx"
-  
-  const filePath = path.join(devlogDirectory, actualDirName, ...decodedPostSlug) + ".mdx";
+  const filePath =
+    path.join(devlogDirectory, actualDirName, ...decodedPostSlug) + ".mdx";
 
   if (!fs.existsSync(filePath)) {
     throw new Error(`Devlog not found: ${filePath}`);
@@ -55,11 +57,11 @@ function getDevlogPost(projectSlug: string, postSlug: string[]) {
 
   const markdownFile = fs.readFileSync(filePath, "utf-8");
   const { data: frontMatter, content } = matter(markdownFile);
-  
+
   return {
     frontMatter,
     content,
-    actualDirName
+    actualDirName,
   };
 }
 
@@ -69,7 +71,7 @@ export default async function DevlogPostPage({
   params: Promise<{ project: string; slug: string[] }>;
 }) {
   const { project, slug } = await params;
-  const { frontMatter, content, actualDirName } = getDevlogPost(project, slug);
+  const { frontMatter, content } = getDevlogPost(project, slug);
 
   return (
     <article>
@@ -93,7 +95,7 @@ export default async function DevlogPostPage({
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            {frontMatter.date 
+            {frontMatter.date
               ? new Date(frontMatter.date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -115,7 +117,7 @@ export default async function DevlogPostPage({
       </div>
 
       <div className="postContent">
-        <MDXRemote source={content} options={options} />
+        <MDXRemote source={content} options={options} components={components} />
       </div>
     </article>
   );

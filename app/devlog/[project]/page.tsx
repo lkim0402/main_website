@@ -1,11 +1,7 @@
-import PageTitle from "../../../components/PageTitle";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import PostLink from "../../../components/post/PostLink";
-import { projectData } from "@/data/projectData";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import BackButton from "components/BackButton";
 
 type FrontMatter = {
@@ -61,14 +57,15 @@ export default async function ProjectDevlogPage({
 }) {
   const { project: projectSlug } = await params;
   const devlogDirectory = path.join(process.cwd(), "devlogs");
-  
+
   // Find the actual directory name that matches the slug
-  const projectDirs = fs.readdirSync(devlogDirectory, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
-  
-  const actualDirName = projectDirs.find(dir => slugify(dir) === projectSlug);
-  
+  const projectDirs = fs
+    .readdirSync(devlogDirectory, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+  const actualDirName = projectDirs.find((dir) => slugify(dir) === projectSlug);
+
   if (!actualDirName) {
     return <div>Project folder not found.</div>;
   }
@@ -80,14 +77,18 @@ export default async function ProjectDevlogPage({
     .map((fullPath) => {
       // Get path relative to the project directory, not the devlogs root
       const relativePathToProject = path.relative(projectPath, fullPath);
-      const postSlug = relativePathToProject.replace(/\\/g, "/").replace(".mdx", "");
+      const postSlug = relativePathToProject
+        .replace(/\\/g, "/")
+        .replace(".mdx", "");
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data: frontMatter } = matter(fileContents);
       const meta = frontMatter as FrontMatter;
 
       if (meta.Published === false) return null;
 
-      const postDate = meta.date ? new Date(meta.date) : fs.statSync(fullPath).mtime;
+      const postDate = meta.date
+        ? new Date(meta.date)
+        : fs.statSync(fullPath).mtime;
 
       return {
         slug: postSlug,
@@ -100,15 +101,12 @@ export default async function ProjectDevlogPage({
 
   return (
     <div className="animate-in fade-in duration-300">
-
-      <BackButton/>
-      <div>Devlogs for {actualDirName}</div>
+      <BackButton />
+      <div className="microsoftFont">Devlogs for {actualDirName}</div>
       {/* <PageTitle
         title={actualDirName}
         description={`Devlogs for ${actualDirName}`}
       /> */}
-      
-      
 
       <div className="mt-8">
         <div className="flex flex-col justify-center">
