@@ -3,9 +3,6 @@
 @plugin "@tailwindcss/typography";
 @import "katex/dist/katex.min.css";
 
-/* Custom dark mode variant for Tailwind v4 */
-@custom-variant dark (&:where(.dark, .dark *));
-
 @font-face {
   font-family: "MicrosoftFont";
   src: url("/fonts/MSW98UI-Regular.ttf") format("truetype");
@@ -37,19 +34,13 @@ pre {
 }
 
 code {
-  background-color: #d7e0fa;
+  background-color: #3b3b5c; /* Dark mode background */
   border-radius: 0.25rem;
   padding: 0.15em 0.4em;
   font-family: monospace;
   font-size: 1em;
-  color: #753bcc;
+  color: #c7d4f9; /* Dark mode text */
   vertical-align: middle;
-
-  /* Dark mode styles */
-  @variant dark {
-    background-color: #3b3b5c; /* Darker navy/slate */
-    color: #c7d4f9; /* Light lavender/blue */
-  }
 }
 
 .hljs {
@@ -77,7 +68,7 @@ div[data-youtube-video] {
 
 @layer components {
   .linkButton {
-    @apply mt-1 cursor-pointer border-2 p-0.5 px-1 font-['MicrosoftFont'] font-medium text-[#1d2f92] hover:text-[#7182e6] dark:text-[#dcdfff] dark:hover:text-[#FFF8DE];
+    @apply mt-1 cursor-pointer border-2 p-0.5 px-1 font-['MicrosoftFont'] font-medium text-[#dcdfff] hover:text-[#FFF8DE];
   }
 
   .highlight {
@@ -90,8 +81,8 @@ div[data-youtube-video] {
   border-style: solid;
   padding: 0.375rem 0.5rem;
   font-family: "MicrosoftFont";
-  border-color: rgb(44, 31, 168);
-  color: rgb(44, 31, 168);
+  border-color: #a5b4fc;
+  color: #a5b4fc;
 }
 
 .buttonLink:hover {
@@ -103,10 +94,10 @@ div[data-youtube-video] {
 /* Main Post Content Logic */
 .postContent {
   a {
-    color: rgb(29, 47, 146);
+    color: #a5b4fc;
     font-weight: 500;
     cursor: pointer;
-    text-decoration: underline blue dotted;
+    text-decoration: underline #a5b4fc dotted;
   }
 
   a:hover {
@@ -119,32 +110,14 @@ div[data-youtube-video] {
     margin: auto;
   }
 
-  /* Default Light Mode Colors */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    color: #1a202c;
+    color: #f7fafc;
     line-height: 1.25;
-  }
-
-  /* Using @variant dark to target the root .dark class */
-  @variant dark {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: #f7fafc;
-    }
-
-    a {
-      color: #a5b4fc; /* Light indigo for dark mode links */
-      text-decoration-color: #a5b4fc;
-    }
   }
 
   h1 {

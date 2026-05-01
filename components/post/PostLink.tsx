@@ -7,14 +7,14 @@ export default function PostLink({ path, title, date }: PostLinkStruct) {
   return (
     <div className="flex flex-row items-center">
       {/* Date */}
-      <div className="microsoftFont shrink-0 grow-0 basis-[6.5rem] pt-[0.25rem] dark:text-[#bfc0f1]">
+      <div className="microsoftFont shrink-0 grow-0 basis-[6.5rem] pt-[0.25rem] text-[#bfc0f1]">
         {date}
       </div>
 
       {/* Content */}
       <section className="">
         <Link href={`/blog/${path}`}>
-          <div className="line-clamp-2 font-normal text-gray-800 underline decoration-dotted transition-all duration-300 hover:scale-101 dark:text-gray-100">
+          <div className="line-clamp-2 font-normal text-gray-100 underline decoration-dotted transition-all duration-300 hover:scale-101">
             {title}
           </div>
         </Link>

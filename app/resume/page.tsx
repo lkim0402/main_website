@@ -35,12 +35,12 @@ export default function Resume() {
           <div className="mb-6">
             <div className="mb-4">
               {/* Role title */}
-              <p className="text-[1.45rem] font-medium dark:text-indigo-200">
+              <p className="text-[1.45rem] font-medium text-indigo-200">
                 AWS Certified Cloud Practitioner
               </p>
 
               {/* Company and Date (only show on first role) */}
-              <div className="mb-1 text-gray-600 dark:text-gray-300">
+              <div className="mb-1 text-gray-300">
                 April 2025
               </div>
             </div>
@@ -49,12 +49,12 @@ export default function Resume() {
           <div className="mb-6">
             <div className="mb-4">
               {/* Role title */}
-              <p className="text-[1.45rem] font-medium dark:text-indigo-200">
+              <p className="text-[1.45rem] font-medium text-indigo-200">
                 TensorFlow Developer Certificate{" "}
               </p>
 
               {/* Company and Date (only show on first role) */}
-              <div className="mb-1 text-gray-600 dark:text-gray-300">
+              <div className="mb-1 text-gray-300">
                 Sept 2023
               </div>
             </div>

@@ -8,7 +8,7 @@ export default function Subtitle({ title }: subTitleFormat) {
       <div
         className="
           text-xl font-bold 
-        dark:text-indigo-200 microsoftFont"
+        text-indigo-200 microsoftFont"
       >
         {title}
       </div>

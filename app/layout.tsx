@@ -27,31 +27,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={dm_sans.className} suppressHydrationWarning>
+    <html lang="en" className={`${dm_sans.className} dark`} suppressHydrationWarning>
       <head>
-        {/* Verification & Theme Script */}
+        {/* Verification Script */}
         <meta
           name="google-site-verification"
           content="o_7CxN7gSSBek2bzrce1_LKa5Y7YeDCFZH2rff2sNZw"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (localStorage.theme === 'light') {
-                  document.documentElement.classList.remove('dark');
-                } else {
-                  document.documentElement.classList.add('dark');
-                }
-              } catch (_) {}
-            `,
-          }}
         />
       </head>
 
       <GoogleAnalytics gaId="G-VEJVKJLKK7" />
 
-      <body className="flex h-screen flex-col overflow-hidden bg-[#e4ecff] dark:bg-[#232338] dark:text-[#fffdf7]">
+      <body className="flex h-screen flex-col overflow-hidden bg-[#232338] text-[#fffdf7]">
         <div className="pt-0.5 pb-0.5">
           <Header />
         </div>

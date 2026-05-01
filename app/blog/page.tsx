@@ -161,7 +161,7 @@ export default async function Workshop() {
           {categoryList.map((category) => (
             <li key={category}>
               <div
-                className="text-gray-800 dark:text-gray-100
+                className="text-gray-100
                 transition duration-300 ease-in-out hover:scale-101
                 origin-left
                 font-normal underline decoration-dotted"
@@ -183,7 +183,7 @@ export default async function Workshop() {
           {yearList.map((year) => (
             <li key={year}>
               <div
-                className="text-gray-800 dark:text-gray-100
+                className="text-gray-100
                 transition duration-300 ease-in-out hover:scale-101
                 origin-left
                 font-normal underline decoration-dotted"

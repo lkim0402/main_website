@@ -50,13 +50,13 @@ export default function SectionDetails({
                 )}
                 {/* Role title */}
                 <div className="mb-3.5">
-                  <p className="text-[1.20rem] font-medium dark:text-indigo-200">
+                  <p className="text-[1.20rem] font-medium text-indigo-200">
                     {role}
                   </p>
 
                   {/* Company and Date (only show on first role) */}
                   {index === 0 && (
-                    <div className="mb-1 text-gray-600 dark:text-[#f3f4ff]">
+                    <div className="mb-1 text-[#f3f4ff]">
                       {orgLink ? (
                         <a
                           href={orgLink}
@@ -74,7 +74,7 @@ export default function SectionDetails({
                   )}
                   {/* Tech Stack */}
                   {skills[index] && skills[index].length > 0 && (
-                    <p className="text-gray-600 italic dark:text-[#e6e8fe]">
+                    <p className="text-[#e6e8fe] italic">
                       {skills[index].join(", ")}
                     </p>
                   )}

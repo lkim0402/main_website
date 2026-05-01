@@ -39,7 +39,7 @@ export default function Collapsible({ title, children, defaultOpen = false }) {
       </button>
 
       {isOpen && (
-        <div className="mt-3 border-b-2 border-indigo-100 dark:border-[#787db8]" />
+        <div className="mt-3 border-b-2 border-[#787db8]" />
       )}
 
       <div

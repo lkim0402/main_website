@@ -14,7 +14,7 @@ export default function Home() {
             <p className="text-[2rem] font-bold">
               Welcome to my small corner of the web!
             </p>
-            <div className="mb-3 text-gray-600 dark:text-[#dcdfff]">
+            <div className="mb-3 text-[#dcdfff]">
               <p>🎧ྀ software engineer (ai, backend) </p>
             </div>
           </div>
@@ -25,14 +25,19 @@ export default function Home() {
               <span className="highlight">CS @ Paul G. Allen School</span>.
             </p>
             <p>
-              Currently, I&apos;m exploring different things! I’m polishing my
-              full stack skills, learning AI-workflows and Unity, trying to
-              document everything, and researching{" "}
-              <span className="highlight">
-                {" "}
-                AR tech and LLMs at Makeability Lab @ UW
-              </span>
-              .
+              Currently, I&apos;m exploring different things! 
+              
+              <ul class="list-disc">
+                <li>learning AI workflows & llms</li>
+                <li>trying game dev (unity c#)</li>
+                <li>researching{" "}
+                  <span className="highlight">
+                    {" "}
+                    AR tech and LLMs at Makeability Lab @ UW
+                  </span>
+                </li>
+              </ul>
+
             </p>
             <p>
               Outside of tech, I love reading, art, talking walks, and gaming.

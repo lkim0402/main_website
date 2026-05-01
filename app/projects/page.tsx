@@ -37,7 +37,7 @@ export default function Projects() {
               className={`microsoftFont px-2 py-1 hover:cursor-pointer ${
                 el === category
                   ? "bg-indigo-400 text-sky-50"
-                  : "dark:hover:bg- hover:bg-[#bec3f2]"
+                  : "hover:bg-[#4a4a7a]"
               }`}
             >
               {el}

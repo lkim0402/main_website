@@ -26,10 +26,10 @@ export default function Project({
 
       {/* Project details below the image/gif */}
       <div className="mt-5 space-y-2 px-2">
-        <h2 className="microsoftFont text-2xl font-bold text-indigo-400 dark:text-[#f9faff]">
+        <h2 className="microsoftFont text-2xl font-bold text-[#f9faff]">
           {title}
         </h2>
-        <div className="microsoftFont flex flex-wrap items-center gap-2 text-gray-800 dark:text-[#f0f1ff]">
+        <div className="microsoftFont flex flex-wrap items-center gap-2 text-[#f0f1ff]">
           {date}
           <span>|</span>
           <span>{type}</span>
@@ -40,14 +40,14 @@ export default function Project({
                 <Link
                   key={index}
                   href={el.url}
-                  className="hover: px-1 dark:bg-[#5959a9] dark:hover:bg-[#aea8d1]"
+                  className="hover: px-1 bg-[#5959a9] hover:bg-[#aea8d1]"
                 >
                   {el.name}
                 </Link>
               );
             })}
         </div>
-        <span className="microsoftFont text-gray-400 dark:text-[#e6e8fe]">
+        <span className="microsoftFont text-[#e6e8fe]">
           {skills}
         </span>
         <div className="py-2">
