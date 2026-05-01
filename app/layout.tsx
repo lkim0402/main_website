@@ -51,7 +51,7 @@ export default function RootLayout({
 
       <GoogleAnalytics gaId="G-VEJVKJLKK7" />
 
-      <body className="flex h-screen flex-col overflow-hidden bg-[#e4ecff] dark:bg-[#26263d] dark:text-[#fffdf7]">
+      <body className="flex h-screen flex-col overflow-hidden bg-[#e4ecff] dark:bg-[#232338] dark:text-[#fffdf7]">
         <div className="pt-0.5 pb-0.5">
           <Header />
         </div>
