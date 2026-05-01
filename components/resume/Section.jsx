@@ -1,12 +1,7 @@
 export default function Section({ title }) {
   return (
     <div>
-      <p
-        className="text-2xl font-bold text-left transition-all duration-300 transform 
-          microsoftFont text-indigo-400 hover:text-[#999ffc]
-         dark:text-indigo-300  dark:hover:text-indigo-200 hover:scale-101
-       "
-      >
+      <p className="microsoftFont transform text-left text-2xl font-bold text-indigo-400 transition-all duration-300 hover:scale-101 hover:text-[#999ffc] dark:text-indigo-200 dark:hover:text-indigo-100">
         {title}
       </p>
     </div>

@@ -1,21 +1,19 @@
 import { sectionDetails } from "./types";
 
 export const WorkDetails: sectionDetails[] = [
-    {
+  {
     org: "Finda",
     // orgLink: "https://makeabilitylab.cs.washington.edu/",
     date: "Feb 2026 - Present",
-    position: ["AI Intern"],
-    skills: [["Python, LangChain, OpenAI API (GPT-4o), SQL, n8n"]],
+    position: ["Software Engineering Intern (AI)"],
+    skills: [
+      ["Python, LangChain, Claude Code, Lambda, Playwright, Jira, SQL, n8n"],
+    ],
     description: [
-      [
-        <>
-          Engineering AI workflows
-        </>
-      ],
+      [<>Engineering AI workflows (harness engineering) for task automation</>],
     ],
     icon: "/resumeIcons/finda.png",
-    },
+  },
   {
     org: "Makeability Lab @ UW",
     orgLink: "https://makeabilitylab.cs.washington.edu/",

@@ -18,7 +18,7 @@ const options = {
 function getPost(slug: string[]) {
   const markdownFile = fs.readFileSync(
     path.join(process.cwd(), "posts", ...slug) + ".mdx",
-    "utf-8"
+    "utf-8",
   );
   const { data: frontMatter, content } = matter(markdownFile);
   return {
@@ -41,14 +41,14 @@ export default async function Post({
   } = getPost(slug);
   return (
     <article>
-      <div className="border-b-2 border-dotted border-blue-300 mb-10">
-        <div className="text-4xl font-bold break-words ">
+      <div className="mb-10 border-b-2 border-dotted border-blue-300">
+        <div className="text-4xl font-bold break-words">
           {frontMatter.title}
         </div>
-        <div className="flex flex-row gap-3 my-4 microsoftFont">
-          <span className="flex items-center shrink-0">
+        <div className="microsoftFont my-4 flex flex-row gap-3">
+          <span className="flex shrink-0 items-center">
             <svg
-              className="w-4 h-4 mr-1"
+              className="mr-1 h-4 w-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -69,7 +69,10 @@ export default async function Post({
           <div className="space-x-[0.5rem]">
             {frontMatter.Tags.map((el: string) => {
               return (
-                <span className="tag" key={el}>
+                <span
+                  className="bg-indigo-400/30 px-[0.35rem] py-[0.375rem]"
+                  key={el}
+                >
                   #{el}
                 </span>
               );

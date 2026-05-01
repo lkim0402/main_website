@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Head from "next/head";
 import "./globals.css";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { SideProfile } from "../components/SideProfile";
+
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { DM_Sans } from "next/font/google";
 
@@ -11,16 +12,12 @@ const dm_sans = DM_Sans({
   variable: "--font-dm-sans",
   display: "swap",
 });
-// const inter = Inter({
-//   subsets: ["latin"],
-// });
-
 
 export const metadata: Metadata = {
   title: "leejunkim",
   description: "Personal notes",
   icons: {
-    icon: "/favicon1.png", 
+    icon: "/favicon1.png",
   },
 };
 
@@ -30,29 +27,45 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={dm_sans.className}>
-      <Head>
-        <meta charSet="UTF-8" />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <html lang="en" className={dm_sans.className} suppressHydrationWarning>
+      <head>
+        {/* Verification & Theme Script */}
+        <meta
+          name="google-site-verification"
+          content="o_7CxN7gSSBek2bzrce1_LKa5Y7YeDCFZH2rff2sNZw"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.theme === 'light') {
+                  document.documentElement.classList.remove('dark');
+                } else {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
+      </head>
 
-        <link rel="preconnect" href={process.env.NEXT_PUBLIC_API_URL} />
-        <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_API_URL} />
-      </Head>
-      <meta
-        name="google-site-verification"
-        content="o_7CxN7gSSBek2bzrce1_LKa5Y7YeDCFZH2rff2sNZw"
-      />
       <GoogleAnalytics gaId="G-VEJVKJLKK7" />
 
-      <body className="bg-[#e4ecff] dark:bg-[#362F4F] dark:text-[#fffdf7]">
-        <div className=" pt-0.5 pb-0.5 mb-10">
+      <body className="flex h-screen flex-col overflow-hidden bg-[#e4ecff] dark:bg-[#2a2a48] dark:text-[#fffdf7]">
+        <div className="pt-0.5 pb-0.5">
           <Header />
         </div>
-        <div className="mt-5 md:w-7/12 flex flex-col mx-auto text-md children">
-          {children}
+
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-row items-start justify-center overflow-hidden px-4 md:mt-12 md:gap-10">
+          <div className="hidden md:block">
+            <SideProfile />
+          </div>
+
+          <div className="text-md children flex h-full w-10/12 flex-col overflow-y-auto pr-4 [scrollbar-width:none]">
+            {children}
+            <Footer />
+          </div>
         </div>
-        <Footer />
       </body>
     </html>
   );

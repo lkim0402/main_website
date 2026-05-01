@@ -15,7 +15,7 @@ export default function SectionDetails({
   const subtitleArray = Array.isArray(position) ? position : [position];
 
   return (
-    <div className="mb-2 flex items-start gap-4">
+    <div className="mb-2 flex items-start">
       {/* Icon */}
       {icon && (
         <div className="mt-1 hidden h-[48px] min-w-[48px] md:block">
@@ -49,7 +49,7 @@ export default function SectionDetails({
                   </div>
                 )}
                 {/* Role title */}
-                <div>
+                <div className="mb-3.5">
                   <p className="text-[1.20rem] font-medium dark:text-indigo-200">
                     {role}
                   </p>
@@ -72,24 +72,23 @@ export default function SectionDetails({
                       | {date}
                     </div>
                   )}
+                  {/* Tech Stack */}
+                  {skills[index] && skills[index].length > 0 && (
+                    <p className="text-gray-600 italic dark:text-[#e6e8fe]">
+                      {skills[index].join(", ")}
+                    </p>
+                  )}
                 </div>
               </div>
-              {/* Tech Stack */}
-              {skills[index] && skills[index].length > 0 && (
-                <p className="text-gray-600 italic dark:text-[#e6e8fe]">
-                  {skills[index].join(", ")}
-                </p>
+              {/* Description */}
+              {description[index] && description[index].length > 0 && (
+                <ul className="list-none space-y-1">
+                  {description[index].map((desc, descIdx) => (
+                    <li key={descIdx}>{desc}</li>
+                  ))}
+                </ul>
               )}
             </div>
-
-            {/* Description */}
-            {description[index] && description[index].length > 0 && (
-              <ul className="list-none space-y-1">
-                {description[index].map((desc, descIdx) => (
-                  <li key={descIdx}>{desc}</li>
-                ))}
-              </ul>
-            )}
 
             {/* Links */}
             {link && (
