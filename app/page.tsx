@@ -25,11 +25,11 @@ export default function Home() {
               <span className="highlight">CS @ Paul G. Allen School</span>.
             </p>
             <p>
-              Currently, I&apos;m exploring different things! 
+              Currently, I&apos;m exploring:
               
-              <ul class="list-disc">
-                <li>learning AI workflows & llms</li>
-                <li>trying game dev (unity c#)</li>
+              <ul class="list-disc list-inside">
+                <li>learning AI workflows</li>
+                <li>trying game dev (unity c#.. attempting a visual novel style rpg)</li>
                 <li>researching{" "}
                   <span className="highlight">
                     {" "}
