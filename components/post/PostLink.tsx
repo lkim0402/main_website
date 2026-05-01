@@ -7,7 +7,7 @@ export default function PostLink({ path, title, date }: PostLinkStruct) {
   return (
     <div className="flex flex-row items-center">
       {/* Date */}
-      <div className="microsoftFont shrink-0 grow-0 basis-[6.5rem] pt-[0.25rem] dark:text-[#bab1ec]">
+      <div className="microsoftFont shrink-0 grow-0 basis-[6.5rem] pt-[0.25rem] dark:text-[#bfc0f1]">
         {date}
       </div>
 

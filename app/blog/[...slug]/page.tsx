@@ -3,9 +3,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import rehypeHighlight from "rehype-highlight";
-import "/styles/highlight-js/tokyo-night-dark.css";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import BackButton from "components/BackButton";
 
 const options = {
   mdxOptions: {
@@ -39,8 +39,10 @@ export default async function Post({
     // slug,
     content,
   } = getPost(slug);
+
   return (
     <article>
+      <BackButton />
       <div className="mb-10 border-b-2 border-dotted border-blue-300">
         <div className="text-4xl font-bold break-words">
           {frontMatter.title}
