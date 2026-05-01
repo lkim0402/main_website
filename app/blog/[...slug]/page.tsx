@@ -13,17 +13,24 @@ const options = {
     rehypePlugins: [rehypeHighlight, rehypeKatex],
   },
 };
-
 // helper function to get post path
 function getPost(slug: string[]) {
-  const markdownFile = fs.readFileSync(
-    path.join(process.cwd(), "posts", ...slug) + ".mdx",
-    "utf-8",
-  );
+  const decodedSlug = slug.map((s) => decodeURIComponent(s));
+  const postsPath = path.join(process.cwd(), "posts", ...decodedSlug) + ".mdx";
+  const devlogsPath = path.join(process.cwd(), "devlogs", ...decodedSlug) + ".mdx";
+
+  let markdownFile;
+  if (fs.existsSync(postsPath)) {
+    markdownFile = fs.readFileSync(postsPath, "utf-8");
+  } else if (fs.existsSync(devlogsPath)) {
+    markdownFile = fs.readFileSync(devlogsPath, "utf-8");
+  } else {
+    throw new Error(`Post not found: ${decodedSlug.join("/")}`);
+  }
+
   const { data: frontMatter, content } = matter(markdownFile);
   return {
     frontMatter,
-    // slug,
     content,
   };
 }

@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 @import "katex/dist/katex.min.css";
+@import "../styles/highlight-js/tokyo-night-dark.css";
 
 @font-face {
   font-family: "MicrosoftFont";
@@ -24,8 +25,6 @@ body {
 }
 
 pre {
-  background: #1e1e1e;
-  color: #f8f8f2;
   padding: 1rem;
   border-radius: 0.5rem;
   font-family: "JetBrainsMono", monospace;
@@ -34,12 +33,10 @@ pre {
 }
 
 code {
-  background-color: #3b3b5c; /* Dark mode background */
   border-radius: 0.25rem;
   padding: 0.15em 0.4em;
   font-family: monospace;
   font-size: 1em;
-  color: #c7d4f9; /* Dark mode text */
   vertical-align: middle;
 }
 
@@ -74,6 +71,14 @@ div[data-youtube-video] {
   .highlight {
     @apply text-[#c7d4f9];
   }
+}
+
+.textLink {
+    color: #dcdfff;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline #a5b4fc dotted;
+
 }
 
 /* Main Post Content Logic */

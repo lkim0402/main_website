@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { SideProfile } from "../components/SideProfile";
+// import StatWidget from "../components/StatWidget";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { DM_Sans } from "next/font/google";
@@ -20,6 +21,8 @@ export const metadata: Metadata = {
     icon: "/favicon1.png",
   },
 };
+
+import { Suspense } from "react";
 
 export default function RootLayout({
   children,
@@ -46,6 +49,9 @@ export default function RootLayout({
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-row items-start justify-center overflow-hidden px-4 md:mt-12 md:gap-10">
           <div className="hidden md:block">
             <SideProfile />
+            {/* <Suspense fallback={<div className="mt-6 h-24 w-full animate-pulse bg-blue-50/5 border-2 border-indigo-300/10"></div>}>
+              <StatWidget />
+            </Suspense> */}
           </div>
 
           <div className="text-md children flex h-full w-10/12 flex-col overflow-y-auto pr-4 [scrollbar-width:none]">

@@ -24,21 +24,16 @@ export default function Home() {
               currently studying{" "}
               <span className="highlight">CS @ Paul G. Allen School</span>.
             </p>
-            <p>
-              Currently, I&apos;m exploring:
+            <div>
+              Currently I&apos;m:
               
-              <ul class="list-disc list-inside">
-                <li>learning AI workflows</li>
+              <ul className="list-disc list-inside">
+                <li>learning ai engineering & workflows</li>
                 <li>trying game dev (unity c#.. attempting a visual novel style rpg)</li>
-                <li>researching{" "}
-                  <span className="highlight">
-                    {" "}
-                    AR tech and LLMs at Makeability Lab @ UW
-                  </span>
-                </li>
+                <li>researching AR tech and LLMs at Makeability Lab @ UW</li>
               </ul>
 
-            </p>
+            </div>
             <p>
               Outside of tech, I love reading, art, talking walks, and gaming.
             </p>
