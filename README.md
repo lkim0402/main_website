@@ -9,8 +9,3 @@ Personal website and English tech blog built with Next.js. I use this space to d
 - **Next.js** (App Router)
 - **React**
 - **Tailwind CSS**
-
-## Related Repos
-
-- [Admin Frontend](https://github.com/lkim0402/blog-admin-frontend)
-- [Backend](https://github.com/lkim0402/blog-backend)
