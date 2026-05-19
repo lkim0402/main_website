@@ -1,12 +1,10 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import rehypeHighlight from "rehype-highlight";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import BackButton from "components/BackButton";
 import ImageGrid from "components/ImageGrid";
+import { getPostContent } from "../../lib/posts";
 
 const options = {
   mdxOptions: {
@@ -19,39 +17,13 @@ const components = {
   ImageGrid,
 };
 
-// helper function to get post path
-function getPost(slug: string[]) {
-  const decodedSlug = slug.map((s) => decodeURIComponent(s));
-  const postsPath = path.join(process.cwd(), "posts", ...decodedSlug) + ".mdx";
-  const devlogsPath = path.join(process.cwd(), "devlogs", ...decodedSlug) + ".mdx";
-
-  let markdownFile;
-  if (fs.existsSync(postsPath)) {
-    markdownFile = fs.readFileSync(postsPath, "utf-8");
-  } else if (fs.existsSync(devlogsPath)) {
-    markdownFile = fs.readFileSync(devlogsPath, "utf-8");
-  } else {
-    throw new Error(`Post not found: ${decodedSlug.join("/")}`);
-  }
-
-  const { data: frontMatter, content } = matter(markdownFile);
-  return {
-    frontMatter,
-    content,
-  };
-}
-
 export default async function Post({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const {
-    frontMatter,
-    // slug,
-    content,
-  } = getPost(slug);
+  const { frontMatter, content } = getPostContent(slug);
 
   return (
     <article>
