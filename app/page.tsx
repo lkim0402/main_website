@@ -26,13 +26,14 @@ export default function Home() {
             </p>
             <div>
               Currently I&apos;m:
-              
-              <ul className="list-disc list-inside">
+              <ul className="list-inside list-disc">
                 <li>learning ai engineering & workflows</li>
-                <li>trying game dev (unity c#.. attempting a visual novel style rpg)</li>
+                <li>
+                  trying game dev (unity c#.. attempting a visual novel style
+                  rpg)
+                </li>
                 <li>researching AR tech and LLMs at Makeability Lab @ UW</li>
               </ul>
-
             </div>
             <p>
               Outside of tech, I love reading, art, talking walks, and gaming.
@@ -43,6 +44,40 @@ export default function Home() {
             <IconList></IconList>
           </div>
         </div>
+      </section>
+
+      {/* Nav guide section */}
+      <section className="mt-5 bg-blue-50/8 px-6 py-7 text-white">
+        <p className="microsoftFont mb-3 text-[1.2rem] font-bold">
+          What&apos;s here
+        </p>
+        <ul className="flex list-none flex-col gap-1.5">
+          <li>
+            <span className="font-medium text-indigo-300">resume</span>
+            {" — "}work experience, education, and skills
+          </li>
+          <li>
+            <span className="font-medium text-indigo-300">projects</span>
+            {" — "}personal and school projects
+          </li>
+          <li>
+            <span className="font-medium text-indigo-300">devlog</span>
+            {" — "}build logs for things I&apos;m working on
+          </li>
+          <li>
+            <span className="font-medium text-indigo-300">blog</span>
+            {" — "}technical notes, algorithms, and reflections
+          </li>
+          <li>
+            <span className="font-medium text-indigo-300">case studies</span>
+            {" — "}deep-dives into AI pipelines and systems I&apos;ve shipped
+            professionally
+          </li>
+          <li>
+            <span className="font-medium text-indigo-300">mind💭</span>
+            {" — "}my obsidian vault, open to the public
+          </li>
+        </ul>
       </section>
 
       {/* About section*/}

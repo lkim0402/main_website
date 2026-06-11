@@ -14,15 +14,34 @@ export type ProjectStruct = {
   links?: Link[];
   skills: string;
   explanation: string[];
+  objectPosition?: string;
 };
 
 export const projectData: ProjectStruct[] = [
+  // agent teamflow
+  {
+    src: "/project/resolve-demo.gif",
+    title: "Agent Teamflow",
+    date: "May 2026",
+    type: [ProjectType.AI, ProjectType.AI_NATIVE],
+    links: [
+      {
+        name: "github",
+        url: "https://github.com/lkim0402/agent-teamflow",
+      },
+    ],
+    skills: "Claude Code, Git Worktrees, GitLab API, Shell",
+    explanation: [
+      "Built a multi-agent Claude Code workflow for a 2-person engineering team using isolated Git worktrees for parallel feature development. Developed 10+ custom skills and commands for context-sharing and task orchestration, and automated GitLab integration for branch creation, MR generation, and pre-merge checks — reducing per-feature shipping overhead to a single command.",
+    ],
+    objectPosition: "left top",
+  },
   // sonocraftar
   {
     src: "/project/sonocraftar.gif",
     title: "SonocraftAR",
     date: "Aug 2025",
-    type: [ProjectType.Research],
+    type: [ProjectType.AI, ProjectType.Research],
 
     links: [
       {
@@ -30,7 +49,7 @@ export const projectData: ProjectStruct[] = [
         url: "https://arxiv.org/abs/2508.17597",
       },
     ],
-    skills: "Unity/C#, GPT API, Prompt Engineering, HoloLens2, Python",
+    skills: "Unity/C#, GPT API, HoloLens2, Python",
     explanation: [
       "Developed SonoCraftAR, an AR HoloLens system that enables DHH users to author personalized shape-based visualizations. Implemented real-time audio processing and script generation/compilation in Unity/C#, GPT API (4o); Designed a multi-agent AI pipeline, delegating specific tasks (e.g., prompt enhancement, code generation, code checker).",
       "Co-authored and published a workshop paper at ISMAR IDEATExR 2025.",
@@ -75,23 +94,23 @@ export const projectData: ProjectStruct[] = [
     ],
   },
   // findex
-  {
-    src: "/project/findex.gif",
-    title: "Findex",
-    date: "June 2025",
-    type: [ProjectType.Software],
+  // {
+  //   src: "/project/findex.gif",
+  //   title: "Findex",
+  //   date: "June 2025",
+  //   type: [ProjectType.Software],
 
-    links: [
-      {
-        name: "github",
-        url: "https://github.com/Sprint-team-3/sb4-findex-team3",
-      },
-    ],
-    skills: "Spring Boot (Java), PostgreSQL, Spring Data JPA, Open API",
-    explanation: [
-      "Led a 5-person team to engineer a financial analysis dashboard. Developed core backend APIs for tracking index performance, moving averages, and rankings. Optimized data processing by implementing a Java sliding window algorithm and complex PostgreSQL queries (aggregations, window functions), significantly reducing query latency.",
-    ],
-  },
+  //   links: [
+  //     {
+  //       name: "github",
+  //       url: "https://github.com/Sprint-team-3/sb4-findex-team3",
+  //     },
+  //   ],
+  //   skills: "Spring Boot (Java), PostgreSQL, Spring Data JPA, Open API",
+  //   explanation: [
+  //     "Led a 5-person team to engineer a financial analysis dashboard. Developed core backend APIs for tracking index performance, moving averages, and rankings. Optimized data processing by implementing a Java sliding window algorithm and complex PostgreSQL queries (aggregations, window functions), significantly reducing query latency.",
+  //   ],
+  // },
 
   //crown of persuasion
   {
@@ -109,23 +128,23 @@ export const projectData: ProjectStruct[] = [
   },
 
   // ImpactEdu
-  {
-    src: "/project/ImpactEdu.gif",
-    title: "ImpactEducation Website",
-    date: "Nov 2025",
-    type: [ProjectType.Web],
+  // {
+  //   src: "/project/ImpactEdu.gif",
+  //   title: "ImpactEducation Website",
+  //   date: "Nov 2025",
+  //   type: [ProjectType.Web],
 
-    links: [
-      {
-        name: "webpage",
-        url: "https://www.impactedu.org/en",
-      },
-    ],
-    skills: "React, Tailwind(CSS), NextJS",
-    explanation: [
-      "Built the main user-facing pages for ImpactEducation with React and Tailwind CSS. Added English–Korean language support through a localization library and ensured consistent, responsive design across platforms.",
-    ],
-  },
+  //   links: [
+  //     {
+  //       name: "webpage",
+  //       url: "https://www.impactedu.org/en",
+  //     },
+  //   ],
+  //   skills: "React, Tailwind(CSS), NextJS",
+  //   explanation: [
+  //     "Built the main user-facing pages for ImpactEducation with React and Tailwind CSS. Added English–Korean language support through a localization library and ensured consistent, responsive design across platforms.",
+  //   ],
+  // },
 
   // bingenius
   {

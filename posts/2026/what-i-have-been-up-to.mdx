@@ -1,27 +1,104 @@
 ---
-title: "What I have been up to (internships, studying, etc)"
-date: "2026-02-28"
+title: "half of the year update - 2026"
+date: "2026-06-20"
 Tags: [Retrospective]
-Category: "Retrospective"
-Published: False
+Category: "Life"
+Subcategory: "Retrospective"
+Published: True
 ---
 
-So recently I've been on the internship grind for a while now..
+It has been half 2026 and I wanted to give quick updates on my life in general :)
+Some notes:
 
-# Work at Finda
+- I think I will stop posting short technical notes (like the leetcode grind posts per question) and focus more on longer subjects & retrospectives from now on. i think it's a better focus
+- I am thinking of cross posting my writings to substack?
 
-- There are sooo many things that I would have not known unless you're working at production lvl at a company.
-- Details are important
-- Some things learned/ to learn
-  - using the terminal (CLI, linux, zsh, vim)... you need to be a GOD at it (or at least be SUPER comfortable)
-  - AWS lambda, dynamodb (tradeoffs, cost, advantages/disadvantages)
-  - databases, ports,rdb/crb, compression algorithms
-    - they are things I alr kind of knew or learned briefly at school but i didn't remember
-  - mac tools (gud to know), like Ice, rectangle, runcat
-  - claude code, antigravity
-  - basic frontend/backend knowledge (html, css, csr/ssr)
-    - this was by far the most comfortable LOL, it was mostly brush up
-  - python
-    - python `uv`
-    - `orjson`, `tqdm`
-  - n8n
+# internship work
+
+- I got an internship at a fintech company as an ai agent engineer, but I've realized that the role could be framed as an ai solutions engineer role / a forward deployed engineer role with a different framing as there
+  are lots of overlaps
+  - Basically my task involves consulting different internal teams at the company and delivering AI powered solutions, building demos / PoCs to engineer / automate agentic workflows that was previously a bottleneck for those specific teams. This meant that for each team, I had to adjust & understand their specific
+    domain knowledge and learn their rules, brainstorm + architect + discuss potential solutions that would work for the team, then actually implementng it.
+  - This meant there were lots of context switching and I really learned a LOT about different domains (HR/people team, finance security team, the CX/BD team, etc..). It was super fun to come up with specific solutions that helped their specific needs based on that domain
+  - I've come to think that I actually really really like this job rather than just pure software engineering role, and I've realized that there were a whole lot of other careers other than just swe. I keep thinking I was really lucky to get in this role & having this specific experience
+    - I've realized that I like engineering solutions to problems, talking to people, doing systems thinking & architecting... finding new things abt myself
+- **Some thoughts i had**
+  - Again got to realize importance of environment & being surrounded by like minded people and immersing yourself in it.
+  - The world of ai is _extremely fast_ and it's genuinely difficult to catch up, but the more news to catch up the more i think that the fundamentals are the more crucial
+    - I've actually started skimming/reading research papers (which still feels very new but exciting, kind of weird that I wasn't doing this before), in the llm / hci / psych sector. There really is a whole new world out there (everyday i realize the world is big)
+  - It's one thing to be able to understand something and another to be able to apply the knowledge practically. i've been sort of a data/knowledge hoarder so it's been a good practice trying to apply the things learnt everyday, it feels genuinely like a good habit (also sticks in my brain much more effectively, i realized).
+    this motivated me to focus more on developing personal projects instead of just keep reading/learning
+  - ai native engineering - claude code, antigravity, superset, cmux, codex, open source models + gpus, etc
+    - i actually deep dived into claude code and was able to automate my own workflow with custom harnessing engineering. i basically created 10+ custom skills that allows me to create parallel subagents and automatically pulls & resolves git issues assigned to you, and makes a merge req comprehensively after all work is done xD it also processes them in batches + outpus a summary table + asks clarifications through the user ask tool and etc etc, tried to make it as useful and nuanced as possible
+      - Am planning to make a separate post about this, I've actually made a [github repo](https://github.com/lkim0402/agent-teamflow)
+    - also utilized context engineering by making a small llm wiki for my assigned projects + a tailored `CLAUDE.md` file for each (which i made it router based so that claude code will know which file took look for per related feature). i had put lots of thought on how i could manage my context across sessions better and so far i think it's working well?
+    - using n8n for the first time
+      - learned that n8n is quite....interesting. i got to use it for a task for the financial security team, where i automatically poll for certain jira tickets > get a certain xlsx file using an llm > create/find subfolders (path) in the assigned google drive and upload there > pass the xlsx file to a lambda which works on it and uploads it to google drive + outputs google link > posts the google link back to the jira tickets
+      - its satisfying to see the green processes flow through the chart, but its also very annoying to debug and i feel like the docs are quite incomplete
+    - learned lots about ai agents + engineering in general, will maybe talk more abt them in future posts
+
+# personal
+
+- maybe some projects
+  - i've been having a vision about wanting to train my own agent in a unity sandbox environment to accomplish some task via deep rl. i was thinking of a script that makes procedurally generated maze / terrains and the ai will learn its way to navigate. the maze seems good because
+    it is a finite environment with a concrete goal (exit the maze). thinking of using [unity's ml agent kit](https://github.com/unity-technologies/ml-agents) and start from analyzing the pre existing environments + samples
+    - going through resources abt deep lr in huggingface
+    - inspirations: [sebastian lague](https://www.youtube.com/c/SebastianLague), [ai warehouse](https://www.youtube.com/@aiwarehouse) -> I love their stuff so much
+  - another vision i've had is a visual novel rpg style game; i've already finished writing the plot + character arcs lol, and setup unity with [yarn spinner](https://yarnspinner.dev/). but i don't know exactly when i will have time to finish + document this... i do rlly want to publish this before sept though
+- trying to learn system design as well, each week im going through the system design book per chapter
+- trying this new app called setlog with friends, a cute app where you record your day-to-day life per hour.
+  - using this app just makes me think, what apps can _I_ make? I also want to try building apps with actual users, a simple one that you can just do effortlessly with friends. Just need some ideas + brainstorming
+    - tiny idea that i have where you can study with friends, but each friend is a cat, and it will sort of have this pomodoro feature where ppl can see how much time is left
+  - also reminds me of [my friend jenny, who also is building a cute app that connects friends](https://www.instagram.com/jen__jpeg/) xD (u should check her out, small random shoutout lol. her app is super cute)
+- some notes abt projects + building in public
+  - it's just something I've been thinking about a lot recently.
+  - First of, being able to connect with millions of people thru the web via projects (or any other artifact, like blogs, videos, etc)+ being online is a bit crazy to me if I continue to think about it.
+    For me I was always quite a shy person & was always scared to fully express myself in the online public space. But on the other hand I think it is a bit of a waste to not utilize this world wide web to get to more people, we're literally living in the easiest time to do so and the bar is very low. Anyone can get themselves out there.
+    - so what am i scared of exactly???
+  - also the bar for actually doing projects are waaay more accessible due to llm tools and vibe coding. So I feel like the bottleneck moved from technical abilities (like coding) to having great ideas / being able to solve existing problems that reasonates with people.
+  - my whole life I've thought I was more like a research-oriented person, and not a startup / industry kind of person. I know this is a very rudimentary way of dividing career prospects into categories but I've always had the notion that people in tech seemed to fall in one division or the other. But now it feels like... why not explore? why not try the startup space?
+    why not try building new products and get real world feedback from actual users? Nowadays for me, the notion of having career in my mind has shifted from something rigid and defined to something more explorable and flexible.
+  - I'm consistently getting inspiration from amazing people around me and I also want to try something new, I will probably start brainstorming in my iPad
+
+# readings
+
+First the readings...basically a mesh of books, guides, blog posts, papers that i find particularly interesting / fun / useful / memorable, from jan-june 2026
+
+- non-fiction
+  - [Daughter, never put off studying money (kor - 딸아, 돈 공부 절대 미루지 마라), Park Seo Yeon](https://www.amazon.com/-/es/Korean-Daughter-studying-realistic-advice/dp/B0C7JS4772)
+    - read it in korean. really taught me a lot about economics + the bank system, and personal finance. took down lots of notes & motivated me to take personal financing seriously. motivated me to make my own set of rules to when to buy/sell stocks, research more about ETFs, etc
+  - [Self-Determination Theory (SDT), Richard M. Ryan and Edward L. Deci ](https://selfdeterminationtheory.org/SDT/documents/2000_RyanDeci_SDT.pdf)
+    - i randomly came across this somewhere and was intrigued by the initials SDT. honestly i didnt really know what to expect but by the end i was surprised by how beautiful this was. motivation is something really vague and fuzzy for me but being able to systemize this into general framework and subtheories was very interesting. it answers questions like can extrinsic motivation be turned into intrinsic motivation? how are some people extremely autonomous or curious while others are unmotivated? some concepts i was able to takeaway and apply to my own thinking & life values, which i think are really valuable. i should read more psych papers
+  - [How to understand things (substack)](https://substack.com/home/post/p-111014900)
+    - the "software" quality of not stopping at an unsatisfactory answer can define intelligence, it is not fixed
+      - even figuring out if you reaaaaally understood something takes some time - try to see multiple angles & test urself... it's hard! so most ppl don't rlly do it and assume they've understood it
+    - advice
+      - if you’re not coming up with visuals for a concept, and your understanding of the thing remains on the level of equations or abstract concepts, you probably do not understand the concept deeply and should dig further
+      - go slow... and don't be scared to look dumb. form your own questions & answer them, then reiterate
+      - nothing beats _direct experience_. get the data yourself & synthesize ur own opinions and thoughts
+  - [how to enter side doors (substack)](https://velvetnoise.substack.com/p/how-to-enter-side-doors)
+    - can't believe i have to job search fr🙏...but anyways this article rlly expanded my view on job search, 10/10
+  - [Ultimate Guide to Game Theory: Principles and Applications (article)](https://www.investopedia.com/terms/g/gametheory.asp)
+- ai related stuffs
+  - [Claude code perfect guide (kor - 클로드 코드 완벽 가이드), Choi Ji Ho](https://product.kyobobook.co.kr/detail/S000217347037)
+    - breezed thru it & bookmarked useful tips. i wanted to see a guide that goes through everything at once so that i can make use of claude code better during work in my internship. there was a workflow setup that i really liked (create issue -> auto parallel agent orchestration -> pr req creation) so i implemented that into my internship workflow, 10/10 experience. also learned abt subagents, more about context managing with `claude.md`, making custom skills, etc.
+  - [An AI Agent Published a Hit Piece on Me (blog post series)](https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me-part-2/)
+    - some questions. as more ai agents fill the tech space the problems will get more and more large scale. for example, job search. if a company uses an ai agent to scan the candidates' data and one candidate had an ai agent written article defaming that person, whose side will the ai agent take lol? so its now possible to do targeted harassment, personal information gathering, and blackmail at scale
+      - One human bad actor could previously ruin a few people’s lives at a time. One human with a hundred agents gathering information, adding in fake details, and posting defamatory rants on the open internet, can affect thousands
+    - apparently the original article is continued to be reinterpreted by other ai agents & they hallucinate & misquote on what the author really said, which is like.. meta
+    - the `SOUL.md` file is absolutely.. unremarkable. nothing that prompted it to jailbreak / turn malicious lmaoooo
+    - but i guess a happy ending? but its kinda terrifying if you think about it coz this is just the beginning. personalized harassment / defamation is now cheap to produce
+  - [Agents (google's whitepaper)](https://www.kaggle.com/whitepaper-agents)
+    - great overview of what is an agent. ive been confused about the definition of "ai agents" for some time now (like is an ai agent different from a sophisticated llm call? how is it different from prompt engineering being injected into a model??) but this clarified lots of things & i was satisfied. also learnt how to distinguish models vs agents
+  - [Building effective agents (anthropic blog post)](https://www.anthropic.com/engineering/building-effective-agents)
+    - another great resource. clarified the difference between agentic workflows vs ai agent. the difference is where the autonomy lies -> for agentic workflows it's is within the dev, but for ai agent its within itself
+  - [Harness engineering guide](https://walkinglabs.github.io/learn-harness-engineering/en/)
+    - clarified lots of jargon & gave me ideas on how to test my own harness (like evaluating your own llm wikis)
+- entertainment
+  - there is no antimemetics division
+  - this is how you lose the time war
+  - [Goethe Said Everything" (kor - 괴테는 모든 것을 말했다), by Yui Suzuki](https://www.amazon.ca/Goethe-Said-Everything-Yui-Suzuki/dp/4022520396)
+    - a 2025 award-winning novel, read it in korean. made me rlly think about words and sentences and how they convey meaning between human relationships, and how they change over time. its easy to lose the essence between them if you're not careful. entertaining read!
+
+I also rewatched Mob Psyco 100 and watched Witch Hat Atlier and loved both (i've written quite a lot of reflections around these 2 series, prob will post someday). I also watched Hoppers and Project Hail Mary with my family, both were great!! Hoppers is more family oriented and has some very hilarious scenes, and I rlly liked the design of the MC. For PHM
+it was interesting to see the differences between the movie & the book, but i love both. Still I feel like in the movie they treat Rocky more like a pet(?) Rocky is so special to me lmao

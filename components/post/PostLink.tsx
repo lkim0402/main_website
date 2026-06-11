@@ -19,7 +19,7 @@ export default function PostLink({
       {/* Content */}
       <section className="">
         <Link href={`${rootPath}/${path}`}>
-          <div className="line-clamp-2 font-normal text-gray-100 underline decoration-dotted transition-all duration-300 hover:scale-101">
+          <div className="line-clamp-2 font-normal text-gray-100 transition-all duration-300 hover:scale-101 hover:underline hover:decoration-dotted">
             {title}
           </div>
         </Link>

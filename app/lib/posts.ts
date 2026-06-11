@@ -8,6 +8,7 @@ export type FrontMatter = {
   date: string | Date;
   Tags: string[];
   Category: string;
+  Subcategory?: string;
   project?: string;
   Published: boolean;
   [key: string]: unknown;
@@ -123,6 +124,49 @@ export function getDevlogProjectDirs(): string[] {
 
 export function resolveDevlogProjectDir(projectSlug: string): string | null {
   return getDevlogProjectDirs().find((d) => slugify(d) === projectSlug) ?? null;
+}
+
+export type CaseStudyFrontMatter = {
+  title: string;
+  date: string;
+  org: string;
+  summary: string;
+  impact: string;
+  tech: string[];
+  team: string;
+  Published: boolean;
+};
+
+export type CaseStudyEntry = {
+  slug: string;
+  meta: CaseStudyFrontMatter;
+};
+
+export const getAllCaseStudies = cache((): CaseStudyEntry[] => {
+  const root = path.join(process.cwd(), "case-studies");
+  return walkMdx(root)
+    .map((fullPath) => {
+      const rel = path.relative(root, fullPath).replace(/\\/g, "/");
+      const slug = rel.replace(/\.mdx$/, "");
+      const { data } = matter(fs.readFileSync(fullPath, "utf8"));
+      const meta = data as CaseStudyFrontMatter;
+      if (meta.Published === false) return null;
+      return { slug, meta };
+    })
+    .filter((c): c is CaseStudyEntry => c !== null)
+    .sort(
+      (a, b) =>
+        new Date(b.meta.date).valueOf() - new Date(a.meta.date).valueOf(),
+    );
+});
+
+export function getCaseStudyContent(slug: string) {
+  const filePath =
+    path.join(process.cwd(), "case-studies", slug) + ".mdx";
+  if (!fs.existsSync(filePath))
+    throw new Error(`Case study not found: ${slug}`);
+  const { data, content } = matter(fs.readFileSync(filePath, "utf-8"));
+  return { frontMatter: data as CaseStudyFrontMatter, content };
 }
 
 export function getDevlogPostContent(projectSlug: string, postSlug: string[]) {

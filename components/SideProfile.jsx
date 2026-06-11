@@ -1,10 +1,22 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
-const headerElem = ["home", "resume", "projects", "devlog", "blog", "mind💭"];
+const navItems = [
+  { label: "home", path: "/" },
+  { label: "resume", path: "/resume" },
+  { label: "projects", path: "/projects" },
+  { label: "blog", path: "/blog" },
+  { label: "case studies", path: "/case-studies" },
+  { label: "mind💭", path: "https://leejun-obsidian-vault.vercel.app/", external: true },
+];
 
 export function SideProfile() {
+  const pathname = usePathname();
+  const isActive = (path) =>
+    path === "/" ? pathname === "/" : pathname.startsWith(path);
+
   return (
     <div className="border-2 border-indigo-300/5 bg-blue-50/5">
       {/* picture */}
@@ -13,24 +25,17 @@ export function SideProfile() {
       </div>
       {/* category */}
       <div className="microsoftFont mx-5 my-10 flex flex-col text-xl md:w-36">
-        {headerElem.map((el) => (
+        {navItems.map((item) => (
           <Link
-            key={el}
-            href={
-              el == "home"
-                ? "/"
-                : el == "mind💭"
-                  ? "https://leejun-obsidian-vault.vercel.app/"
-                  : `/${el}`
-            }
-            className={`transform transition-all duration-300 hover:scale-105 hover:text-blue-200 ${
-              el == "mind" && "underline"
+            key={item.label}
+            href={item.path}
+            className={`transition-all duration-300 hover:text-blue-200 ${
+              isActive(item.path) ? "text-indigo-300" : ""
             }`}
-            title={el == "mind" ? "obsidian vault" : undefined}
-            rel={el == "mind" ? "noopener noreferrer" : undefined}
-            target={el == "mind" ? "_blank" : undefined}
+            rel={item.external ? "noopener noreferrer" : undefined}
+            target={item.external ? "_blank" : undefined}
           >
-            {el}
+            {isActive(item.path) ? `> ${item.label}` : item.label}
           </Link>
         ))}
       </div>
