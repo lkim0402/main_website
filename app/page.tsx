@@ -51,30 +51,36 @@ export default function Home() {
         <p className="microsoftFont mb-3 text-[1.2rem] font-bold">
           What&apos;s here
         </p>
-        <ul className="flex list-none flex-col gap-1.5">
+        <ul className="flex list-disc flex-col pl-6">
           <li>
-            <span className="font-medium text-indigo-300">resume</span>
+            <span className="microsoftFont font-medium text-indigo-300">
+              resume
+            </span>
             {" — "}work experience, education, and skills
           </li>
           <li>
-            <span className="font-medium text-indigo-300">projects</span>
+            <span className="microsoftFont font-medium text-indigo-300">
+              projects
+            </span>
             {" — "}personal and school projects
           </li>
           <li>
-            <span className="font-medium text-indigo-300">devlog</span>
-            {" — "}build logs for things I&apos;m working on
-          </li>
-          <li>
-            <span className="font-medium text-indigo-300">blog</span>
+            <span className="microsoftFont font-medium text-indigo-300">
+              blog
+            </span>
             {" — "}technical notes, algorithms, and reflections
           </li>
           <li>
-            <span className="font-medium text-indigo-300">case studies</span>
+            <span className="microsoftFont font-medium text-indigo-300">
+              case studies
+            </span>
             {" — "}deep-dives into AI pipelines and systems I&apos;ve shipped
             professionally
           </li>
           <li>
-            <span className="font-medium text-indigo-300">mind💭</span>
+            <span className="microsoftFont font-medium text-indigo-300">
+              mind💭
+            </span>
             {" — "}my obsidian vault, open to the public
           </li>
         </ul>
