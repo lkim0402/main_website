@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { sectionDetails } from "./types";
 
 export const WorkDetails: sectionDetails[] = [
@@ -20,9 +21,9 @@ export const WorkDetails: sectionDetails[] = [
           Code workflow system with custom skills and GitLab automation for
           parallel feature development.
         </>,
-        <a href="/case-studies?org=Finda" className="textLink underline">
+        <Link key="case-studies-link" href="/case-studies?org=Finda" className="textLink underline">
           Read case studies →
-        </a>,
+        </Link>,
       ],
     ],
     icon: "/resumeIcons/finda.png",
