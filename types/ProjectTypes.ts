@@ -1,9 +1,10 @@
 export enum ProjectType {
-  All = "All",
-  AI = "AI/ML",
-  Software = "Software",
-  Game = "Game",
-  Web = "Web",
-  Research = "Research",
+  All = "all",
+  AI = "ai",
+  AI_NATIVE = "ai native",
+  Software = "software",
+  Game = "game dev",
+  Web = "web",
+  Research = "research",
   //   Course = "Course",
 }

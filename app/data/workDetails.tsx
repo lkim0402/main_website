@@ -3,14 +3,27 @@ import { sectionDetails } from "./types";
 export const WorkDetails: sectionDetails[] = [
   {
     org: "Finda",
-    // orgLink: "https://makeabilitylab.cs.washington.edu/",
     date: "Feb 2026 - Present",
     position: ["Software Engineering Intern (AI)"],
     skills: [
       ["Python, LangChain, Claude Code, Lambda, Playwright, Jira, SQL, n8n"],
     ],
     description: [
-      [<>Engineering AI workflows (harness engineering) for task automation</>],
+      [
+        <>
+          Engineered AI pipelines and workflows for internal teams across
+          financial operations, people ops, and customer success — each
+          eliminating significant manual overhead.
+        </>,
+        <>
+          Built internal AI engineering tooling including a multi-agent Claude
+          Code workflow system with custom skills and GitLab automation for
+          parallel feature development.
+        </>,
+        <a href="/case-studies?org=Finda" className="textLink underline">
+          Read case studies →
+        </a>,
+      ],
     ],
     icon: "/resumeIcons/finda.png",
   },

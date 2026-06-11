@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["res.cloudinary.com", "i.imgur.com", "images.unsplash.com"],
     formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 604800,
   },
 };
 

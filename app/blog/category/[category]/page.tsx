@@ -21,9 +21,11 @@ export default async function CategoryPage({
         title={displayCategory}
         description={"Blog posts under " + displayCategory}
       />
+      <div className="mb-5 border-b-2 border-dotted border-blue-300"></div>
+
       <div>
         <div className="flex flex-col justify-center">
-          <div className="flex flex-row "></div>
+          <div className="flex flex-row"></div>
           <div>
             <ul className="">
               {processedBlogs.map((blog) => (

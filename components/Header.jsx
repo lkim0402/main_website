@@ -4,7 +4,14 @@ import { useState } from "react";
 import { X, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-const headerElem = ["home", "resume", "projects", "devlog", "blog", "mind💭"];
+const navItems = [
+  { label: "home", path: "/" },
+  { label: "resume", path: "/resume" },
+  { label: "projects", path: "/projects" },
+  { label: "blog", path: "/blog" },
+  { label: "case studies", path: "/case-studies" },
+  { label: "mind💭", path: "https://leejun-obsidian-vault.vercel.app/", external: true },
+];
 
 export function Header() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -23,51 +30,48 @@ export function Header() {
           <Menu size={30} />
         </button>
         {/* Sidebar */}
-        {
-          <>
-            {showSidebar && (
-              <div
-                onClick={() => setShowSidebar(false)} // click to close sidebar
-                className="fixed inset-0 z-40 bg-black/50"
-              ></div>
-            )}
+        <>
+          {showSidebar && (
             <div
-              className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-4 bg-[#15182a] p-6 text-lg shadow-lg duration-300 ease-in-out ${
-                showSidebar ? "translate-x-0" : "-translate-x-full"
-              }`}
-            >
-              <div className="mb-5 flex justify-end">
-                <button
-                  onClick={() => setShowSidebar(false)} // click to close sidebar
-                  aria-label="exit button"
-                >
-                  <X />
-                </button>
-              </div>
-              {headerElem.map((el) => (
-                <Link
-                  key={el}
-                  href={
-                    el == "home"
-                      ? "/"
-                      : el == "mind💭"
-                        ? "https://leejun-obsidian-vault.vercel.app/"
-                        : `/${el}`
-                  }
-                  onClick={() => setShowSidebar(false)}
-                  className={`transform transition-all duration-300 hover:scale-105 hover:text-blue-200 ${
-                    el == "mind" && "underline"
-                  }`}
-                  title={el == "mind" ? "obsidian vault" : undefined}
-                  rel={el == "mind" ? "noopener noreferrer" : undefined}
-                  target={el == "mind" ? "_blank" : undefined}
-                >
-                  {el}
-                </Link>
-              ))}
+              onClick={() => setShowSidebar(false)}
+              className="fixed inset-0 z-40 bg-black/50"
+            ></div>
+          )}
+          <div
+            className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col gap-4 bg-[#15182a] p-6 text-lg shadow-lg duration-300 ease-in-out ${
+              showSidebar ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="mb-5 flex justify-end">
+              <button
+                onClick={() => setShowSidebar(false)}
+                aria-label="exit button"
+              >
+                <X />
+              </button>
             </div>
-          </>
-        }
+            {navItems.map((item) => {
+              const active =
+                item.path === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.path);
+              return (
+                <Link
+                  key={item.label}
+                  href={item.path}
+                  onClick={() => setShowSidebar(false)}
+                  className={`transition-all duration-300 hover:text-blue-200 ${
+                    active ? "text-indigo-300" : ""
+                  }`}
+                  rel={item.external ? "noopener noreferrer" : undefined}
+                  target={item.external ? "_blank" : undefined}
+                >
+                  {active ? `> ${item.label}` : item.label}
+                </Link>
+              );
+            })}
+          </div>
+        </>
       </div>
     </header>
   );
