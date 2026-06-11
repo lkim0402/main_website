@@ -1,0 +1,53 @@
+---
+title: "Agent Teamflow: Multi-Agent Claude Code Workflow"
+date: "2026/03/01"
+org: "Finda"
+summary: "A multi-agent Claude Code system for a 2-person engineering team using isolated Git worktrees, 10+ custom skills, and automated GitLab integration — reducing per-feature shipping to a single command."
+impact: "Per-feature shipping overhead reduced to a single command"
+tech: ["Claude Code", "Git Worktrees", "GitLab API", "Custom Skills", "Shell"]
+team: "Solo (designed for a 2-person team)"
+Published: true
+---
+
+## The Problem
+
+As a 2-person AI engineering team working with Claude Code, our workflow had real friction. Each feature required manually setting up an isolated environment, writing fresh context for the agent, coordinating branches, and handling GitLab manually — creating branches, writing MR descriptions, checking pre-merge status. This overhead added up across every feature.
+
+## My Role
+
+Sole designer and engineer. I built Agent Teamflow while concurrently working on a separate project, iterating on it based on what actually slowed us down in practice.
+
+## Approach
+
+**Isolated Worktrees Per Agent**
+
+The core idea: each Claude Code agent gets its own Git worktree — a full checkout of the repo at a separate path, completely isolated from main and from other agents. This lets two agents work on different features simultaneously without branch conflicts, stale file state, or interference.
+
+**Context-Sharing Infrastructure**
+
+A multi-agent system is only as good as its context. I designed:
+- A `CLAUDE.md` that acts as the team's shared mental model — project conventions, architecture decisions, and the agent teamflow protocol
+- Per-feature context files so an agent picking up a new task could read exactly what it needed without a human briefing it each time
+
+**10+ Custom Skills and Commands**
+
+Built a library of reusable skills covering the full feature lifecycle:
+- Task intake (parse issue, set up worktree, initialize context)
+- Development phase (run tests, lint, check for conflicts)
+- Pre-merge checks (validation, test coverage gate)
+- GitLab integration (create branch, generate MR with auto-written description, poll review status)
+
+**Single-Command Shipping**
+
+The end result: to ship a feature, you run one command. It picks up the issue, sets up the worktree, delegates to an agent, and when the agent finishes, generates the MR and runs pre-merge checks — the full loop, no manual steps.
+
+## Technical Highlights
+
+- Git worktree isolation enabling true parallel agent execution without branch interference
+- GitLab API integration for automated branch creation, MR generation with contextual descriptions, and status checks
+- Context file architecture designed specifically for LLM onboarding (not human-readable docs in the usual sense)
+- Composable skill library that grew organically as new friction points appeared in real use
+
+## Outcome
+
+Reduced per-feature shipping overhead to a single command. The workflow handles the full delivery loop — issue intake through MR — without any manual GitLab interaction. Building this also gave me a much clearer mental model of what makes multi-agent workflows actually work in practice, which fed directly into how I structured the context and testing infrastructure for the HR system.
