@@ -48,7 +48,7 @@ export default function RootLayout({
             <SideProfile />
           </div>
 
-          <div className="text-md children flex h-full w-10/12 flex-col overflow-y-auto pr-4 [scrollbar-width:none]">
+          <div className="text-md children flex h-full w-full flex-col overflow-y-auto md:w-10/12 [scrollbar-width:none]">
             {children}
             <Footer />
           </div>

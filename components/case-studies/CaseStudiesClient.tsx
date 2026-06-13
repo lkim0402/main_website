@@ -45,11 +45,11 @@ export default function CaseStudiesClient({
         {filtered.map(({ slug, meta }) => (
           <Link key={slug} href={`/case-studies/${slug}`}>
             <div className="cursor-pointer border border-indigo-400/20 p-5 transition-colors hover:border-indigo-400/50">
-              <div className="mb-1 flex items-start justify-between gap-4">
-                <h2 className="text-lg font-semibold text-indigo-200">
+              <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                <h2 className="min-w-0 text-lg font-semibold text-indigo-200">
                   {meta.title}
                 </h2>
-                <div className="microsoftFont flex shrink-0 flex-col items-end gap-1 text-xs text-[#bfc0f1]">
+                <div className="microsoftFont flex flex-col gap-1 text-xs text-[#bfc0f1] sm:shrink-0 sm:items-end">
                   <span>{meta.org}</span>
                   <span>{meta.team}</span>
                 </div>
