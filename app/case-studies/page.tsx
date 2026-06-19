@@ -10,7 +10,7 @@ export default async function CaseStudies() {
     <div>
       <PageTitle
         title="Case Studies"
-        description="End-to-end AI pipelines and systems I've delivered across different organizations."
+        description="End-to-end AI pipelines and systems I've delivered across different organizations"
       />
       <Suspense>
         <CaseStudiesClient studies={studies} />
