@@ -29,6 +29,10 @@ export const projectData: ProjectStruct[] = [
         name: "github",
         url: "https://github.com/lkim0402/agent-teamflow",
       },
+      {
+        name: "blog",
+        url: "https://www.leejunkim.com/case-studies/agent-teamflow",
+      },
     ],
     skills: "Claude Code, Git Worktrees, GitLab API, Shell",
     explanation: [
