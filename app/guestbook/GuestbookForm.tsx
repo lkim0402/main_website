@@ -7,14 +7,14 @@ export default function GuestbookForm() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-2">
+    <div className="absolute right-0 bottom-0 left-0 flex flex-col items-center pb-2">
       {open && (
         <form
           action={async (formData) => {
             await addEntry(formData);
             setOpen(false);
           }}
-          className="w-full max-w-md flex flex-col gap-3 p-4 bg-[#232338] border border-indigo-300/20"
+          className="flex w-full max-w-md flex-col gap-3 border border-indigo-300/20 bg-[#232338] p-4"
         >
           <input
             name="name"
@@ -42,7 +42,7 @@ export default function GuestbookForm() {
 
       <button
         onClick={() => setOpen(!open)}
-        className="microsoftFont cursor-pointer text-xs text-indigo-300/60 hover:text-indigo-300 hover:bg-indigo-300/10 transition-all px-3 py-1 border border-transparent hover:border-indigo-300/30"
+        className="microsoftFont text-md cursor-pointer border border-indigo-300/30 px-3 py-1 text-indigo-300/60 transition-all hover:border-indigo-300 hover:bg-indigo-300/10 hover:text-indigo-300"
       >
         {open ? "▼ close" : "▲ sign the guestbook"}
       </button>

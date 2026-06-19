@@ -22,7 +22,7 @@ export default async function GuestBook() {
         description="Feel free to write anything or say hi :)"
       />
       {since && (
-        <p className="microsoftFont text-md mb-4 text-indigo-300/50">
+        <p className="microsoftFont text-md mb-7 border-b border-indigo-300/50 text-indigo-300/50">
           {entries.length} {entries.length === 1 ? "entry" : "entries"} since{" "}
           {since}
         </p>
