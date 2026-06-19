@@ -9,45 +9,80 @@ team: "Solo (designed for a 2-person team)"
 Published: true
 ---
 
-## The Problem
+# The Situation
 
-As a 2-person AI engineering team working with Claude Code, our workflow had real friction. Each feature required manually setting up an isolated environment, writing fresh context for the agent, coordinating branches, and handling GitLab manually — creating branches, writing MR descriptions, checking pre-merge status. This overhead added up across every feature.
+During my latest internship, our team was encouraged to use Claude Code as efficiently as possible, and we used them in quick prototyping PoCs and demo projects that were later turned
+into long-term projects. The thing was my teammate and I were both running Claude Code agents on the same repo simultaneously.
+Our workflow looked the same - we manually prompted the agent to fetch issues, waited, manually prompted it to start working, waited (again), manually prompted
+it to open an MR/PR when done, and repeat that whole sequence every time.
+The thing was that this whole process was a bit annoying to handle since, no coordination layer existed between us. So we would constantly interrupt each other with
+"hey, what are you working on rn?" or "what issues should I take next?" or etc.
 
-## My Role
+<br />
+So I had this idea of automating the entire workflow using a set of custom
+claude code skills, where we could automate the entire process of creating +
+assigning issues, fetching + working on the issues simultaneously in batches
+(using claude subagents), do the prod-merge or test check, then automatically
+create the related PR/MR in _one go_.
+<br />
 
-Sole designer and engineer. I built Agent Teamflow while concurrently working on a separate project, iterating on it based on what actually slowed us down in practice.
+The point of this skillset is to make it easier for developers working _in teams_ to coordinate creating/working on multiple issues
+and creating related MRs.
 
-## Approach
+<br />
 
-**Isolated Worktrees Per Agent**
+I named this project Agent Teamflow and iterated with its skills while working on the team's main project,
+trying to improve on it based on what actually slowed us down in actual development.
 
-The core idea: each Claude Code agent gets its own Git worktree — a full checkout of the repo at a separate path, completely isolated from main and from other agents. This lets two agents work on different features simultaneously without branch conflicts, stale file state, or interference.
+# Overall
 
-**Context-Sharing Infrastructure**
+I let GPT Image 2.0 create this diagram for me lol, and it surprisingly did a decent job:
 
-A multi-agent system is only as good as its context. I designed:
-- A `CLAUDE.md` that acts as the team's shared mental model — project conventions, architecture decisions, and the agent teamflow protocol
-- Per-feature context files so an agent picking up a new task could read exactly what it needed without a human briefing it each time
+![](https://github.com/lkim0402/agent-teamflow/raw/main/docs/images/agent_teamflow_simple.png)
 
-**10+ Custom Skills and Commands**
+The available skills are:
 
-Built a library of reusable skills covering the full feature lifecycle:
-- Task intake (parse issue, set up worktree, initialize context)
-- Development phase (run tests, lint, check for conflicts)
-- Pre-merge checks (validation, test coverage gate)
-- GitLab integration (create branch, generate MR with auto-written description, poll review status)
+- `/issue` - turn a brain dump into branch-sized issues sized to avoid batch-merge conflicts
+- `/dispatch` - split a brain dump across multiple teammates, write a workflow log, file issues for each
+- `/resolve` - (⭐) pick up your open issues, implement each in a parallel worktree (cap 3), batch-merge when done
+- `/git-auto-merge` — commit -> push -> merge into your lane + open or update an MR/PR to shared staging
+- `/post-merge` - after merging to staging, label linked issues as "done in staging". Auto-close fires on staging → main
+- `/prod-check` - pre-production diff review scoped to your own commits: impact, contracts, auth, stability, regressions
 
-**Single-Command Shipping**
+<br />
 
-The end result: to ship a feature, you run one command. It picks up the issue, sets up the worktree, delegates to an agent, and when the agent finishes, generates the MR and runs pre-merge checks — the full loop, no manual steps.
+The most important skill is `/resolve`, and it looks like this:
+![](https://github.com/lkim0402/agent-teamflow/raw/main/docs/images/resolve-demo.gif)
 
-## Technical Highlights
+This is a mermaid diagram of `/resolve`:
 
-- Git worktree isolation enabling true parallel agent execution without branch interference
-- GitLab API integration for automated branch creation, MR generation with contextual descriptions, and status checks
-- Context file architecture designed specifically for LLM onboarding (not human-readable docs in the usual sense)
-- Composable skill library that grew organically as new friction points appeared in real use
+<img src="/agent-teamflow.png" className="w-[40rem]" />
 
-## Outcome
+Some deliberate choices:
 
-Reduced per-feature shipping overhead to a single command. The workflow handles the full delivery loop — issue intake through MR — without any manual GitLab interaction. Building this also gave me a much clearer mental model of what makes multi-agent workflows actually work in practice, which fed directly into how I structured the context and testing infrastructure for the HR system.
+- When the user is presented with the available fetched issues assigned to them, the harness also calculates + shows the user
+  approximately how much time each issue takes. I thought this will be useful because then, the user is able to batch similarly timed
+  issues at the same time and end all work relatively at a similar rate.
+- When the harness dispatches each issue to different claude subagents, it chooses the appropriate model based on the issue's complexity
+  (ex. `Opus` for complicated tasks, and `Sonnet` for less)
+- I let the user chooses the issues in batches of 3 by default because I thought it was a good balance between the parallel workload and being able to context switch. But ofc the user
+  can choose less/more
+- After each subagent is done with the work, it also deliberately starts test builds and see if anything breaks before declaring done and returning
+  work to the original parent branch. It used to not have this instruction until I consistently encountered breaking
+  changes only after all subagents were finished.
+- I deliberately designed the skill so that you can make an MR/PR after any groups of batches so you won't have just a single huge MR/PR (it used to be so that you can only upload one
+  big PR/MR after literally everything is done)
+
+<br />
+Limitations
+
+- `Agent teamflow` I believe works best with iterating quickly with
+  small to mid sized issues. If you are working on a huge issue with tons of work
+  needed then maybe it is better to use a separate harness designed for that
+  intention.
+
+# Outcome
+
+Me and my teammate use this very frequently in our project and is very satisfied with how it turned out. xD
+
+Here is the [github repo](https://github.com/lkim0402/agent-teamflow), feel free to give any feedback or open a PR.
