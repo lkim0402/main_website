@@ -7,7 +7,10 @@ export const revalidate = 0;
 export default async function GuestBook() {
   const entries = await getEntries();
 
-  const oldest = entries.length > 0 ? new Date(entries[entries.length - 1].created_at) : null;
+  const oldest =
+    entries.length > 0
+      ? new Date(entries[entries.length - 1].created_at)
+      : null;
   const since = oldest
     ? oldest.toLocaleDateString("en-US", { year: "numeric", month: "short" })
     : null;
@@ -19,8 +22,9 @@ export default async function GuestBook() {
         description="Feel free to write anything or say hi :)"
       />
       {since && (
-        <p className="microsoftFont mb-4 text-xs text-indigo-300/50">
-          {entries.length} {entries.length === 1 ? "entry" : "entries"} since {since}
+        <p className="microsoftFont text-md mb-4 text-indigo-300/50">
+          {entries.length} {entries.length === 1 ? "entry" : "entries"} since{" "}
+          {since}
         </p>
       )}
 
