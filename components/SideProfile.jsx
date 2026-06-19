@@ -9,7 +9,12 @@ const navItems = [
   { label: "projects", path: "/projects" },
   { label: "blog", path: "/blog" },
   { label: "case studies", path: "/case-studies" },
-  { label: "mind💭", path: "https://leejun-obsidian-vault.vercel.app/", external: true },
+  { label: "guestbook", path: "/guestbook" },
+  {
+    label: "mind💭",
+    path: "https://leejun-obsidian-vault.vercel.app/",
+    external: true,
+  },
 ];
 
 export function SideProfile() {
