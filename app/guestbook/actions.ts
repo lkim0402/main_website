@@ -3,6 +3,7 @@
 import { supabase } from "../../lib/supabase";
 import { revalidatePath } from "next/cache";
 
+// fetches all the rows from the db
 export async function getEntries() {
   const { data, error } = await supabase
     .from("guestbook")
@@ -13,6 +14,7 @@ export async function getEntries() {
   return data ?? [];
 }
 
+// called when someone adds a row in the table (signs)
 export async function addEntry(formData: FormData) {
   const name = (formData.get("name") as string)?.trim();
   const message = (formData.get("message") as string)?.trim();

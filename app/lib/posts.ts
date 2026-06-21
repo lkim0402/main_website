@@ -21,6 +21,7 @@ export type BlogEntry = {
   meta: FrontMatter;
 };
 
+// devlog
 export type DevlogEntry = {
   slug: string;
   project: string;
@@ -28,6 +29,23 @@ export type DevlogEntry = {
   formattedDate: string;
   actualDate: Date;
   meta: FrontMatter;
+};
+
+// for case studies
+export type CaseStudyFrontMatter = {
+  title: string;
+  date: string;
+  org: string;
+  summary: string;
+  impact: string;
+  tech: string[];
+  team: string;
+  Published: boolean;
+};
+
+export type CaseStudyEntry = {
+  slug: string;
+  meta: CaseStudyFrontMatter;
 };
 
 export function formatDate(date: Date) {
@@ -126,22 +144,6 @@ export function resolveDevlogProjectDir(projectSlug: string): string | null {
   return getDevlogProjectDirs().find((d) => slugify(d) === projectSlug) ?? null;
 }
 
-export type CaseStudyFrontMatter = {
-  title: string;
-  date: string;
-  org: string;
-  summary: string;
-  impact: string;
-  tech: string[];
-  team: string;
-  Published: boolean;
-};
-
-export type CaseStudyEntry = {
-  slug: string;
-  meta: CaseStudyFrontMatter;
-};
-
 export const getAllCaseStudies = cache((): CaseStudyEntry[] => {
   const root = path.join(process.cwd(), "case-studies");
   return walkMdx(root)
@@ -161,8 +163,7 @@ export const getAllCaseStudies = cache((): CaseStudyEntry[] => {
 });
 
 export function getCaseStudyContent(slug: string) {
-  const filePath =
-    path.join(process.cwd(), "case-studies", slug) + ".mdx";
+  const filePath = path.join(process.cwd(), "case-studies", slug) + ".mdx";
   if (!fs.existsSync(filePath))
     throw new Error(`Case study not found: ${slug}`);
   const { data, content } = matter(fs.readFileSync(filePath, "utf-8"));

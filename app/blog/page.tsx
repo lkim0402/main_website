@@ -93,7 +93,7 @@ export default async function Workshop() {
                               "/"
                             }
                           >
-                            {sub} ({count})
+                            └ {sub} ({count})
                           </Link>
                         </div>
                       </li>
