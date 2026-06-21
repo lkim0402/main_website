@@ -19,7 +19,7 @@ export default async function GuestBook() {
     <div className="relative flex h-full flex-col overflow-hidden">
       <PageTitle
         title="guestbook"
-        description="Feel free to write anything or say hi :)"
+        description="Feel free to write anything or say hi :) "
       />
       {since && (
         <p className="microsoftFont text-md mb-7 border-b border-indigo-300/50 text-indigo-300/50">
@@ -52,7 +52,9 @@ export default async function GuestBook() {
                   })}
                 </span>
               </div>
-              <p className="mt-1 text-sm text-[#fffdf7]/80">{entry.message}</p>
+              <p className="mt-1 font-mono text-sm whitespace-pre-wrap text-[#fffdf7]/80">
+                {entry.message}
+              </p>
             </div>
           ))}
         </div>

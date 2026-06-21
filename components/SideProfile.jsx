@@ -26,7 +26,7 @@ export function SideProfile() {
     <div className="border-2 border-indigo-300/5 bg-blue-50/5">
       {/* picture */}
       <div className="flex justify-center">
-        <Image src="/sky.gif" alt="test" width={200} height={500} />
+        <Image src="/sky.gif" alt="test" width={200} height={500} priority />
       </div>
       {/* category */}
       <div className="microsoftFont mx-5 my-10 flex flex-col text-xl md:w-36">
